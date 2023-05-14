@@ -1,0 +1,14 @@
+{
+  "name": "FridgeApp",
+  "displayName": "FridgeApp",
+  "expo": {
+    "plugins": [
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ]
+    ]
+  }
+}
