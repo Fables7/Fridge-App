@@ -1,15 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyledCard, StyledButton} from './StyledFridgeItemCard';
 import {StyledTextWhite, StyledText} from '../../../sharedStyles';
 import {useHttpClient} from '../../../../hooks/http-hook';
 import moment from 'moment';
 import {CustomInput, CustomButton} from '../../../../components';
-import {
-  View,
-  KeyboardAvoidingView,
-  Platform,
-  ActivityIndicator,
-} from 'react-native';
+import {View, KeyboardAvoidingView, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {API_URL} from '../../../../variables';
 
@@ -64,9 +59,10 @@ const NewProductCard = ({
   setFixedAmount,
   setProductName,
   productName,
+  imageUrl,
+  setImageUrl,
 }) => {
-  // console.log(productName, 'name');
-  const [isFixed, setIsFixed] = useState(false);
+  const [isFixed, setIsFixed] = useState(true);
   return (
     <View>
       <CustomInput
@@ -74,6 +70,12 @@ const NewProductCard = ({
         title="Name:"
         titleColor="white"
         onChangeText={e => setProductName(e)}
+      />
+      <CustomInput
+        value={imageUrl}
+        title="Image URL: (optional)"
+        titleColor="white"
+        onChangeText={e => setImageUrl(e)}
       />
       <StyledTextWhite>Amount:</StyledTextWhite>
 
@@ -126,6 +128,7 @@ const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
   const [productName, setProductName] = useState(`${name}` || '');
   const [fixedAmount, setFixedAmount] = useState('1');
   const [estimated, setEstimated] = useState(false);
+  const [imageUrl, setImageUrl] = useState(null);
 
   // Find if product exists in database
   useEffect(() => {
@@ -166,6 +169,7 @@ const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
       let productData = {
         name: productName,
         barcode: barcode,
+        image: imageUrl,
       };
       if (estimated) {
         productData = {...productData, estimatedAmount: estimated};
@@ -191,30 +195,39 @@ const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
   return (
     <>
       <StyledCard contentContainerStyle={{alignItems: 'center'}}>
-        <StyledTextWhite>{productId ? name : 'New Product'}</StyledTextWhite>
-        <KeyboardAvoidingView enabled style={{width: '80%'}}>
-          {console.log(productId, 'id')}
-          {productId ? (
-            <NewItemCard {...{quantity, setQuantity, expDate, setExpDate}} />
-          ) : (
-            <NewProductCard
-              {...{
-                name,
-                estimated,
-                setEstimated,
-                setFixedAmount,
-                fixedAmount,
-                productName,
-                setProductName,
-              }}
-            />
-          )}
-        </KeyboardAvoidingView>
-        {/* <StyledTextWhite>{props.name}</StyledTextWhite> */}
+        {!isLoading && (
+          <>
+            <StyledTextWhite>
+              {productId ? name : 'New Product'}
+            </StyledTextWhite>
+            <KeyboardAvoidingView enabled style={{width: '80%'}}>
+              {productId ? (
+                <NewItemCard
+                  {...{quantity, setQuantity, expDate, setExpDate}}
+                />
+              ) : (
+                <NewProductCard
+                  {...{
+                    name,
+                    estimated,
+                    setEstimated,
+                    setFixedAmount,
+                    fixedAmount,
+                    productName,
+                    setProductName,
+                    setImageUrl,
+                    imageUrl,
+                  }}
+                />
+              )}
+            </KeyboardAvoidingView>
+            {/* <StyledTextWhite>{props.name}</StyledTextWhite> */}
 
-        <StyledButton onPress={addProductHandler}>
-          <StyledText>{productId ? 'ADD' : 'CREATE'}</StyledText>
-        </StyledButton>
+            <StyledButton onPress={addProductHandler}>
+              <StyledText>{productId ? 'ADD' : 'CREATE'}</StyledText>
+            </StyledButton>
+          </>
+        )}
       </StyledCard>
     </>
   );

@@ -9,7 +9,7 @@ export const StyledMain = styled.View`
 `;
 
 export const StyledFooter = styled.View`
-  height: 50%;
+  height: ${propos => (propos.scanned ? '70%' : '50%')};
   width: 100%;
   /* padding: 20px 0; */
   /* border: 1px solid red; */

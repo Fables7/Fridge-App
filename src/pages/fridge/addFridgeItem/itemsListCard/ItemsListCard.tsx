@@ -23,7 +23,7 @@ const ItemsListCard = ({
       </View>
     );
   };
-  console.log(items);
+  // console.log(items);
   return (
     <View style={{alignItems: 'center'}}>
       <StyledCard>

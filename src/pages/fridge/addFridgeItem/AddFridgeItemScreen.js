@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Text, Button, StyleSheet, ActivityIndicator} from 'react-native';
+import {Text, Button, StyleSheet, View, ActivityIndicator} from 'react-native';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 import {useHttpClient} from '../../../hooks/http-hook';
 import FridgeItemCard from './fridgeItemCard/FridgeItemCard';
@@ -74,7 +74,6 @@ const AddFridgeItemScreen = ({navigation}) => {
   const handleBarCodeScanned = async ({type, data}) => {
     setIsLoading(true);
     setScanned(true);
-    // console.log(data);
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     if (data) {
       try {
@@ -86,8 +85,6 @@ const AddFridgeItemScreen = ({navigation}) => {
             'Content-Type': 'application/json',
           },
         );
-
-        // console.log('barcode:', data);
 
         // alert(responseData.products[0].product_name);
         const nameExist = responseData.products.length > 0;
@@ -109,7 +106,6 @@ const AddFridgeItemScreen = ({navigation}) => {
   const createItems = async () => {
     if (items.length > 0) {
       const expandedItems = expandItemsByQuantity(items);
-      // console.log('items', expandedItems);
       try {
         await sendRequest(
           `${API_URL}/api/v1/fridges/${auth.fridgeId}/items`,
@@ -145,15 +141,21 @@ const AddFridgeItemScreen = ({navigation}) => {
         />
       </CameraContainer>
 
-      <StyledFooter>
-        {scanned && (
-          <Button title={'Tap to Scan Again'} onPress={handleRescan} />
+      <StyledFooter scanned={scanned}>
+        {scanned && !isLoading && (
+          <View style={{width: '100%'}}>
+            <Button title={'Tap to Scan Again'} onPress={handleRescan} />
+          </View>
         )}
-        {productName || productName === '' ? (
+        {isLoading ? (
+          <ActivityIndicator
+            size="large"
+            style={{transform: [{scaleX: 2}, {scaleY: 2}]}}
+          />
+        ) : productName || productName === '' ? (
           <FridgeItemCard
             name={productName}
             barcode={productBarcode}
-            isLoading={isLoading}
             addItem={addItem}
             handleRescan={handleRescan}
           />
