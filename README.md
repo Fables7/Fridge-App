@@ -8,4 +8,11 @@ to expire is.
 
 # Open Food Facts API
 This app uses Open Food Facts' api to collect food data from their database, primarily names of products associated to their barcode, any extra information would 
-be provided through my app, such as quantity (cheese slices), expiry date, Image, remaining quantity etc
+be provided through my app, such as quantity (cheese slices), expiry date, Image, remaining quantity etc.
+
+# Images
+Concerning the images of the products, my app will request only image urls from official images to maintain a neater display, in addition urls will save any need for storing unnecesary 
+images into the database, as urls take up much less space.
+
+#DISCLAIMER
+As this apps main target is my Family, I have not attempted to make my database robust in the sense of managing who can upload images and edit products, however if the need to update this ever arises I will fix it accordingly, but for now I have decided that it is unnecessary.
