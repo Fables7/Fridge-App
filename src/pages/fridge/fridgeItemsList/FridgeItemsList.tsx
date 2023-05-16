@@ -35,48 +35,54 @@ const FridgeItemsList = ({navigation}: any) => {
           );
           // console.log(responseData.data);
           dispatch(setFridgeItems(responseData.data));
-          const filteredItems = responseData.data.reduce(
-            (acc: any, curr: any) => {
-              if (
-                !acc.some((item: any) => item.product._id === curr.product._id)
-              ) {
-                acc.push(curr);
-              }
-              return acc;
-            },
-            [],
-          );
-          const ids = filteredItems.map((item: any) => item.product._id);
-
-          try {
-            const stats = await sendRequest(
-              `${API_URL}/api/v1/fridges/${
-                auth.fridgeId
-              }/items/product/stats/${ids.join(',')}`,
-              'GET',
-              null,
-              {
-                'Content-Type': 'application/json',
+          if (responseData.data.length > 0) {
+            const filteredItems = responseData.data.reduce(
+              (acc: any, curr: any) => {
+                if (
+                  !acc.some(
+                    (item: any) => item.product._id === curr.product._id,
+                  )
+                ) {
+                  acc.push(curr);
+                }
+                return acc;
               },
+              [],
             );
+            const ids = filteredItems.map((item: any) => item.product._id);
 
-            const counts = filteredItems.map((item: any) => {
-              const stat = stats.data.stats.find(
-                (statData: any) => statData._id === item.product._id,
+            try {
+              const stats = await sendRequest(
+                `${API_URL}/api/v1/fridges/${
+                  auth.fridgeId
+                }/items/product/stats/${ids.join(',')}`,
+                'GET',
+                null,
+                {
+                  'Content-Type': 'application/json',
+                },
               );
-              return stat ? stat.count : 0;
-            });
 
-            const newList = filteredItems.map((item: any, index: any) => {
-              return {
-                ...item,
-                count: counts[index],
-              };
-            });
-            setFilteredList(newList);
-            // console.log('counts', newList);
-          } catch (err) {
-            console.log(err);
+              const counts = filteredItems.map((item: any) => {
+                const stat = stats.data.stats.find(
+                  (statData: any) => statData._id === item.product._id,
+                );
+                return stat ? stat.count : 0;
+              });
+
+              const newList = filteredItems.map((item: any, index: any) => {
+                return {
+                  ...item,
+                  count: counts[index],
+                };
+              });
+              setFilteredList(newList);
+              // console.log('counts', newList);
+            } catch (err) {
+              console.log(err);
+            }
+          } else {
+            setFilteredList([]);
           }
 
           setIsLoading(false);

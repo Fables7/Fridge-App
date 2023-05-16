@@ -100,6 +100,8 @@ export const ItemDetailsScreen = ({route, navigation}) => {
     );
   };
 
+  //TODO: find a way to only update items that need updating rather than updating all of it
+
   const SaveHandler = async () => {
     const itemsToDelete = [];
     const itemsToUpdate = [];
@@ -108,6 +110,17 @@ export const ItemDetailsScreen = ({route, navigation}) => {
       if (item.fixedAmount === 0 || item.estimatedAmount === 'empty') {
         itemsToDelete.push(item._id);
       } else {
+        if (item.estimatedAmount && item.estimatedAmount !== 'full') {
+          item.opened = true;
+          console.log('item should be closed', item);
+        } else if (
+          item.fixedAmount !== null &&
+          item.fixedAmount < item.product.fixedAmount
+        ) {
+          item.opened = true;
+        } else {
+          item.opened = false;
+        }
         itemsToUpdate.push(item);
       }
     });
