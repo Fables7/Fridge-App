@@ -12,22 +12,23 @@ import moment from 'moment';
 
 const FridgeItem = ({item}: any) => {
   const [color, setColor] = React.useState('');
-  const [expDate] = React.useState(new Date(item.expDate));
-  // const dateString = new Date(item.expDate);
-  const momentDate = moment(expDate);
-  const date = momentDate.format('DD/MM/YY');
+  const [expDate, setExpDate] = React.useState(moment(item.expDate));
+  const date = expDate.format('DD/MM/YY');
 
   useEffect(() => {
-    const todayDate = new Date();
-    const twoDaysAgoTimestamp = expDate.getTime() - 2 * 24 * 60 * 60 * 1000;
-    const twoDaysAgo = new Date(twoDaysAgoTimestamp);
+    const todayDate = moment();
+    const twoDaysAgo = moment(expDate).subtract(2, 'days');
 
-    if (todayDate >= expDate) {
+    if (todayDate.isSameOrAfter(expDate, 'day')) {
       setColor('red');
-    } else if (todayDate >= twoDaysAgo && todayDate < expDate) {
+    } else if (todayDate.isBetween(twoDaysAgo, expDate, 'day', '[]')) {
       setColor('orange');
     }
   }, [expDate]);
+
+  useEffect(() => {
+    setExpDate(moment(item.expDate));
+  }, [item.expDate]);
 
   return (
     <StyledFridgeItem

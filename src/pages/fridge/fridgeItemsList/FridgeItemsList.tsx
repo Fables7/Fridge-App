@@ -110,6 +110,7 @@ const FridgeItemsList = ({navigation}: any) => {
       refreshControl={
         <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
       }
+      keyExtractor={item => item._id}
       renderItem={({item}) => {
         return (
           <TouchableOpacity
