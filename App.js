@@ -15,6 +15,7 @@ import {
   RecipesScreen,
   RecurringItemsScreen,
   ItemDetailsScreen,
+  ExpiredScreen,
 } from './src/pages';
 
 import {Provider} from 'react-redux';
@@ -72,6 +73,7 @@ function App() {
         />
         <Drawer.Screen name="Need To Buy" component={NeedToBuyScreen} />
         <Drawer.Screen name="Expiring Soon" component={ExpiringSoonScreen} />
+        <Drawer.Screen name="Expired" component={ExpiredScreen} />
         <Drawer.Screen name="What can I make?" component={RecipesScreen} />
         <Drawer.Screen
           name="Recurring Items"
