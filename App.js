@@ -34,54 +34,56 @@ import {faPlus} from '@fortawesome/pro-solid-svg-icons';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
+const renderDrawerContent = props => {
+  return <CustomDrawerContent {...props} />;
+};
+
+const renderAddItemOptions = ({navigation}) => ({
+  headerRight: () => (
+    <HeaderRight
+      icon={faPlus}
+      onPress={() => navigation.navigate('AddFridgeItem')}
+    />
+  ),
+});
+
+const renderRootNavOptions = ({navigation}) => ({
+  // headerShown: false,
+  headerTitleAlign: 'center',
+  headerStyle: {
+    backgroundColor: colors.gray,
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 0,
+  },
+  headerTitleStyle: {
+    color: 'white',
+  },
+  headerLeft: () => <HeaderLeft navigation={navigation} />,
+});
+
+const Root = () => {
+  return (
+    <Drawer.Navigator
+      screenOptions={renderRootNavOptions}
+      drawerContent={renderDrawerContent}>
+      <Drawer.Screen
+        options={renderAddItemOptions}
+        name="Fridge Items"
+        component={FridgeScreen}
+      />
+      <Drawer.Screen name="Need To Buy" component={NeedToBuyScreen} />
+      <Drawer.Screen name="Expiring Soon" component={ExpiringSoonScreen} />
+      <Drawer.Screen name="Expired" component={ExpiredScreen} />
+      <Drawer.Screen name="What can I make?" component={RecipesScreen} />
+      <Drawer.Screen name="Recurring Items" component={RecurringItemsScreen} />
+    </Drawer.Navigator>
+  );
+};
+
 function App() {
   const {token, login, logout, userId, fridgeId} = useAuth();
   let routes;
-
-  // eslint-disable-next-line react/no-unstable-nested-components
-  const Root = () => {
-    return (
-      <Drawer.Navigator
-        screenOptions={({navigation}) => ({
-          // headerShown: false,
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: colors.gray,
-            elevation: 0,
-            shadowOpacity: 0,
-            borderBottomWidth: 0,
-          },
-          headerTitleStyle: {
-            color: 'white',
-          },
-          headerLeft: () => <HeaderLeft navigation={navigation} />,
-        })}
-        // eslint-disable-next-line react/no-unstable-nested-components
-        drawerContent={props => <CustomDrawerContent {...props} />}>
-        <Drawer.Screen
-          options={({navigation}) => ({
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerRight: () => (
-              <HeaderRight
-                icon={faPlus}
-                onPress={() => navigation.navigate('AddFridgeItem')}
-              />
-            ),
-          })}
-          name="Fridge Items"
-          component={FridgeScreen}
-        />
-        <Drawer.Screen name="Need To Buy" component={NeedToBuyScreen} />
-        <Drawer.Screen name="Expiring Soon" component={ExpiringSoonScreen} />
-        <Drawer.Screen name="Expired" component={ExpiredScreen} />
-        <Drawer.Screen name="What can I make?" component={RecipesScreen} />
-        <Drawer.Screen
-          name="Recurring Items"
-          component={RecurringItemsScreen}
-        />
-      </Drawer.Navigator>
-    );
-  };
 
   if (token) {
     routes = (
