@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {StyledMain, StyledHeader} from '../sharedStyles';
+import {StyledMain, StyledHeader} from '../../sharedStyles';
 import FridgeItemsList from './fridgeItemsList/FridgeItemsList';
 
 const FridgeScreen = ({navigation}: any) => {

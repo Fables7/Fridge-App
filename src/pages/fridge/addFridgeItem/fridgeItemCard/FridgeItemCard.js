@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyledCard, StyledButton} from './StyledFridgeItemCard';
-import {StyledTextWhite, StyledText} from '../../../sharedStyles';
+import {StyledTextWhite, StyledText} from '../../../../sharedStyles';
 import {useHttpClient} from '../../../../hooks/http-hook';
 import moment from 'moment';
 import {CustomInput, CustomButton} from '../../../../components';

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {View, FlatList} from 'react-native';
-import {StyledText} from '../../../sharedStyles';
+import {StyledText} from '../../../../sharedStyles';
 import {StyledCard, StyledButton, StyledItem} from './StyledItemsList';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';

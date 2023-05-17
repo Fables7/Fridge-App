@@ -4,12 +4,12 @@ import {FlatList} from 'react-native';
 import {useHttpClient} from '../../../hooks/http-hook';
 import {AuthContext} from '../../../context/auth-context';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
-import FridgeItem from '../fridgeItem/FridgeItem';
+import {FridgeItem} from '../../../components';
 import {IncrementButton, CustomButton} from '../../../components';
 import {API_URL} from '../../../variables';
 
 // Styles
-import {StyledMain, StyledText} from '../../sharedStyles';
+import {StyledMain, StyledText} from '../../../sharedStyles';
 import {StyledButtons, NumDisplay} from './StyledItemDetails';
 
 export const ItemDetailsScreen = ({route, navigation}) => {

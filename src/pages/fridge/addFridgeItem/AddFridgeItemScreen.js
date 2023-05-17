@@ -7,6 +7,7 @@ import ItemsListCard from './itemsListCard/ItemsListCard';
 import {StyledMain, StyledFooter, CameraContainer} from './StyledAddItem';
 import {AuthContext} from '../../../context/auth-context';
 import {API_URL} from '../../../variables';
+import {Loading} from '../../../components';
 
 const AddFridgeItemScreen = ({navigation}) => {
   const auth = useContext(AuthContext);
@@ -148,10 +149,7 @@ const AddFridgeItemScreen = ({navigation}) => {
           </View>
         )}
         {isLoading ? (
-          <ActivityIndicator
-            size="large"
-            style={{transform: [{scaleX: 2}, {scaleY: 2}]}}
-          />
+          <Loading />
         ) : productName || productName === '' ? (
           <FridgeItemCard
             name={productName}

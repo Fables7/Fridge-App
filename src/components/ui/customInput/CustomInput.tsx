@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyledInput} from './StyledInput';
-import {StyledText} from '../../../pages/sharedStyles';
+import {StyledText} from '../../../sharedStyles';
 import {View} from 'react-native';
 
 interface ICustomInput {

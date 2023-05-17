@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {StyledTextWhite} from '../../../pages/sharedStyles';
+import {StyledTextWhite} from '../../../sharedStyles';
 import {StyledButton} from './StyledCustomButton';
 
 interface ICustomButton {

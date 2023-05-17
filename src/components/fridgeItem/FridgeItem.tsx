@@ -6,6 +6,7 @@ import {
   StyledDate,
   StyledAmount,
 } from './StyledFridgeItem';
+
 import {StyledTextWhite, StyledText} from '../../sharedStyles';
 import {View} from 'react-native';
 import moment from 'moment';

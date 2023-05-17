@@ -4,6 +4,7 @@ export const fridgeItemsSlice = createSlice({
   name: 'fridgeItems',
   initialState: {
     fridgeItems: [],
+    expiredItems: [],
     fridgeId: null,
     fridgeCode: null,
   },
@@ -20,10 +21,24 @@ export const fridgeItemsSlice = createSlice({
     setFridgeItems: (state, action) => {
       state.fridgeItems = action.payload;
     },
+    removeExpiredItem: (state, action) => {
+      state.expiredItems = state.expiredItems.filter(
+        item => item.id !== action.payload,
+      );
+    },
+    setExpiredItems: (state, action) => {
+      state.expiredItems = action.payload;
+    },
   },
 });
 
-export const {addFridgeItem, setFridgeCode, setFridgeId, setFridgeItems} =
-  fridgeItemsSlice.actions;
+export const {
+  addFridgeItem,
+  setFridgeCode,
+  setFridgeId,
+  setFridgeItems,
+  removeExpiredItem,
+  setExpiredItems,
+} = fridgeItemsSlice.actions;
 
 export default fridgeItemsSlice.reducer;

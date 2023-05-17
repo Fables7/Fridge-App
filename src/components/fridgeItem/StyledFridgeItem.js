@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {colors} from '../../../variables';
+import {colors} from '../../variables';
 
 export const StyledFridgeItem = styled.ImageBackground`
   background-color: white;

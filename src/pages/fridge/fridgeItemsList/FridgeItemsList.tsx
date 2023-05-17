@@ -9,7 +9,7 @@ import {setFridgeItems} from '../../../store/fridgeItems';
 import {AuthContext} from '../../../context/auth-context';
 import {API_URL} from '../../../variables';
 
-import FridgeItem from '../fridgeItem/FridgeItem';
+import {FridgeItem} from '../../../components';
 
 const FridgeItemsList = ({navigation}: any) => {
   const [filteredList, setFilteredList] = useState<any[]>([]);
