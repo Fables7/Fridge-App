@@ -1,6 +1,11 @@
 import React, {useEffect, useState, useContext} from 'react';
 
-import {FlatList, RefreshControl, TouchableOpacity} from 'react-native';
+import {
+  FlatList,
+  RefreshControl,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import {useHttpClient} from '../../../hooks/http-hook';
@@ -9,7 +14,7 @@ import {setFridgeItems} from '../../../store/fridgeItems';
 import {AuthContext} from '../../../context/auth-context';
 import {API_URL} from '../../../variables';
 
-import {FridgeItem} from '../../../components';
+import {FridgeItem, Loading} from '../../../components';
 
 const FridgeItemsList = ({navigation}: any) => {
   const [filteredList, setFilteredList] = useState<any[]>([]);
@@ -103,30 +108,41 @@ const FridgeItemsList = ({navigation}: any) => {
   };
 
   return (
-    // <View style={{alignItems: 'center', flex: 1}}>
-    <FlatList
-      data={filteredList}
-      style={{flex: 1, paddingHorizontal: '5%'}}
-      refreshControl={
-        <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
-      }
-      keyExtractor={item => item._id}
-      renderItem={({item}) => {
-        return (
-          <TouchableOpacity
-            activeOpacity={0.9}
-            onPress={() =>
-              navigation.navigate('ItemDetails', {
-                productId: item.product._id,
-              })
-            }>
-            <FridgeItem item={item} />
-          </TouchableOpacity>
-        );
-      }}
-    />
-    // </View>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={filteredList}
+          style={styles.flatlistStyle}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+          }
+          keyExtractor={item => item._id}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() =>
+                  navigation.navigate('ItemDetails', {
+                    productId: item.product._id,
+                  })
+                }>
+                <FridgeItem item={item} />
+              </TouchableOpacity>
+            );
+          }}
+        />
+      )}
+    </>
   );
 };
+
+const styles = StyleSheet.create({
+  flatlistStyle: {
+    flex: 1,
+    paddingHorizontal: '5%',
+  },
+});
 
 export default FridgeItemsList;
