@@ -242,6 +242,7 @@ const LoginForm = () => {
             onChangeText={e => setEmail(e)}
             onBlur={() => handleInputChange('email', email)}
             errMsg={errors.email}
+            keyboardType={'email'}
           />
 
           <CustomInput
@@ -251,6 +252,8 @@ const LoginForm = () => {
             onChangeText={e => setPassword(e)}
             onBlur={() => handleInputChange('password', password)}
             errMsg={errors.password}
+            secureTextEntry
+            autoCapitalize={'none'}
           />
           {!isLoginMode && (
             <>
@@ -263,6 +266,8 @@ const LoginForm = () => {
                   handleInputChange('confirmPassword', confirmPassword)
                 }
                 errMsg={errors.confirmPassword}
+                secureTextEntry
+                autoCapitalize={'none'}
               />
             </>
           )}

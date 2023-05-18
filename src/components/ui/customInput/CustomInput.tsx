@@ -13,6 +13,8 @@ interface ICustomInput {
   keyboardType?: any;
   errMsg?: string;
   onBlur?: () => void;
+  secureTextEntry?: boolean;
+  autoCapitalize?: any;
 }
 
 const CustomInput = (props: ICustomInput) => {
@@ -32,6 +34,8 @@ const CustomInput = (props: ICustomInput) => {
         value={props.value}
         style={props.style}
         keyboardType={props.keyboardType}
+        secureTextEntry={props.secureTextEntry ? true : false}
+        autoCapitalize={props.autoCapitalize}
       />
       {props.errMsg && (
         <StyledText
