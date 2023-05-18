@@ -8,6 +8,7 @@ export const useAuth = () => {
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [userId, setUserId] = useState(false);
   const [fridgeId, setFridgeId] = useState(false);
+  const [fridgeCode, setFridgeCode] = useState(false);
 
   const login = useCallback(async (uid, newToken, fridgeID, expirationDate) => {
     setToken(newToken);
@@ -46,6 +47,26 @@ export const useAuth = () => {
     }
   }, []);
 
+  const setCode = useCallback(async code => {
+    setFridgeCode(code);
+    try {
+      await AsyncStorage.setItem('fridgeCode', code);
+      console.log('code set');
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    const tryCode = async () => {
+      const code = await AsyncStorage.getItem('fridgeCode');
+      if (code) {
+        setFridgeCode(code);
+      }
+    };
+    tryCode();
+  }, [setCode]);
+
   useEffect(() => {
     if (token && tokenExpirationDate) {
       const remainingTime =
@@ -74,5 +95,5 @@ export const useAuth = () => {
     console.log('ran');
   }, [login]);
 
-  return {token, login, logout, userId, fridgeId};
+  return {token, login, logout, userId, fridgeId, fridgeCode, setCode};
 };

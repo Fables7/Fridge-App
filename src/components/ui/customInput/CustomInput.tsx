@@ -10,7 +10,7 @@ interface ICustomInput {
   style?: any;
   title?: string;
   titleColor?: string;
-  keyboardType?: any;
+  keyboardType?: string;
   errMsg?: string;
   onBlur?: () => void;
   secureTextEntry?: boolean;

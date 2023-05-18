@@ -82,7 +82,8 @@ const Root = () => {
 };
 
 function App() {
-  const {token, login, logout, userId, fridgeId} = useAuth();
+  const {token, login, logout, userId, fridgeId, fridgeCode, setCode} =
+    useAuth();
   let routes;
 
   if (token) {
@@ -109,9 +110,11 @@ function App() {
           isLoggedIn: !!token,
           token: token,
           userId: userId,
+          setCode: setCode,
           login: login,
           logout: logout,
           fridgeId: fridgeId,
+          fridgeCode: fridgeCode,
         }}>
         <NavigationContainer>{routes}</NavigationContainer>
       </AuthContext.Provider>

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext, useCallback} from 'react';
-import {View, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {View} from 'react-native';
 import {CustomInput, CustomButton, Loading} from '..';
 import {useHttpClient} from '../../hooks/http-hook';
 import {AuthContext} from '../../context/auth-context';
@@ -242,7 +242,7 @@ const LoginForm = () => {
             onChangeText={e => setEmail(e)}
             onBlur={() => handleInputChange('email', email)}
             errMsg={errors.email}
-            keyboardType={'email'}
+            keyboardType={'email-address'}
           />
 
           <CustomInput
