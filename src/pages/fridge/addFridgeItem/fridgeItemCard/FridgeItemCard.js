@@ -24,7 +24,6 @@ const NewItemCard = ({quantity, setQuantity, setExpDate, expDate}) => {
     <>
       <CustomInput
         title="Amount:"
-        titleColor="white"
         value={quantity}
         keyboardType={'numeric'}
         onChangeText={e => setQuantity(e)}
@@ -68,13 +67,11 @@ const NewProductCard = ({
       <CustomInput
         value={productName}
         title="Name:"
-        titleColor="white"
         onChangeText={e => setProductName(e)}
       />
       <CustomInput
         value={imageUrl}
         title="Image URL: (optional)"
-        titleColor="white"
         onChangeText={e => setImageUrl(e)}
       />
       <StyledTextWhite>Amount:</StyledTextWhite>

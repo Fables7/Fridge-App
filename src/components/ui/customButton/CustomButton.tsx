@@ -8,16 +8,24 @@ interface ICustomButton {
   onPress: () => void;
   selected?: boolean;
   style?: any;
+  disabled?: boolean;
 }
 
-const CustomButton = ({title, onPress, selected, style}: ICustomButton) => {
+const CustomButton = ({
+  title,
+  onPress,
+  selected,
+  style,
+  disabled,
+}: ICustomButton) => {
   return (
     <StyledButton
       activeOpacity={1}
       title={title}
       onPress={onPress}
       style={style}
-      selected={selected}>
+      selected={selected}
+      disabled={disabled}>
       <StyledTextWhite>{title}</StyledTextWhite>
     </StyledButton>
   );
