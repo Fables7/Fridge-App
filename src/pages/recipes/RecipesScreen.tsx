@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
+import {StyledMain} from '../../sharedStyles';
 
 const RecipesScreen = () => {
   return (
-    <View>
-      <Text>Recipes Screen</Text>
-    </View>
+    <StyledMain>
+      <Text>Recipes Screen WIP</Text>
+    </StyledMain>
   );
 };
 

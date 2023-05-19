@@ -1,12 +1,13 @@
 import React from 'react';
 
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
+import {StyledMain} from '../../sharedStyles';
 
 const NeedToBuyScreen = () => {
   return (
-    <View>
-      <Text>Need To Buy Screen</Text>
-    </View>
+    <StyledMain>
+      <Text>Need To Buy Screen WIP</Text>
+    </StyledMain>
   );
 };
 

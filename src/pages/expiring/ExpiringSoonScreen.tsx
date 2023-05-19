@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
+import {StyledMain} from '../../sharedStyles';
 
 const ExpiringSoonScreen = () => {
   return (
-    <View>
-      <Text>Expiring Soon Screen</Text>
-    </View>
+    <StyledMain>
+      <Text>Expiring Soon Screen WIP</Text>
+    </StyledMain>
   );
 };
 
