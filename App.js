@@ -29,7 +29,16 @@ import {
   HeaderLeft,
 } from './src/navigation/CustomDrawerContent';
 import {colors} from './src/variables';
-import {faPlus} from '@fortawesome/pro-solid-svg-icons';
+import {
+  faPlus,
+  faRefrigerator,
+  faListCheck,
+  faHourglassClock,
+  faHourglassEnd,
+  faFaceThinking,
+  faRepeat,
+} from '@fortawesome/pro-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -45,13 +54,18 @@ const renderAddItemOptions = ({navigation}) => ({
       onPress={() => navigation.navigate('AddFridgeItem')}
     />
   ),
+  drawerIcon: ({color}) => (
+    <FontAwesomeIcon icon={faRefrigerator} size={20} color={color} />
+  ),
 });
 
 const renderRootNavOptions = ({navigation}) => ({
   // headerShown: false,
+  drawerActiveTintColor: colors.turquoise,
+  drawerInactiveTintColor: 'white',
   headerTitleAlign: 'center',
   headerStyle: {
-    backgroundColor: colors.gray,
+    backgroundColor: colors.secondary,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomWidth: 0,
@@ -72,11 +86,51 @@ const Root = () => {
         name="Fridge Items"
         component={FridgeScreen}
       />
-      <Drawer.Screen name="Need To Buy" component={NeedToBuyScreen} />
-      <Drawer.Screen name="Expiring Soon" component={ExpiringSoonScreen} />
-      <Drawer.Screen name="Expired" component={ExpiredScreen} />
-      <Drawer.Screen name="What can I make?" component={RecipesScreen} />
-      <Drawer.Screen name="Recurring Items" component={RecurringItemsScreen} />
+      <Drawer.Screen
+        name="Need To Buy"
+        component={NeedToBuyScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <FontAwesomeIcon icon={faListCheck} size={20} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Expiring Soon"
+        component={ExpiringSoonScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <FontAwesomeIcon icon={faHourglassClock} size={20} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Expired"
+        component={ExpiredScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <FontAwesomeIcon icon={faHourglassEnd} size={20} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="What can I make?"
+        component={RecipesScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <FontAwesomeIcon icon={faFaceThinking} size={20} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Recurring Items"
+        component={RecurringItemsScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <FontAwesomeIcon icon={faRepeat} size={20} color={color} />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 };

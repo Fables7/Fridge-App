@@ -7,7 +7,7 @@ export const StyledMain = styled.View`
 `;
 
 export const StyledHeader = styled.View`
-  background-color: ${colors.gray};
+  background-color: ${colors.secondary};
   height: 50px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;

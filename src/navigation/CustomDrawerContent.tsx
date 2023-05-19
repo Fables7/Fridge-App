@@ -3,20 +3,20 @@ import React, {useContext, useEffect} from 'react';
 import {
   DrawerContentScrollView,
   DrawerItemList,
+  DrawerItem,
 } from '@react-navigation/drawer';
 import {AuthContext} from '../context/auth-context';
 import {useHttpClient} from '../hooks/http-hook';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {TouchableOpacity, View} from 'react-native';
-import {faBars} from '@fortawesome/pro-solid-svg-icons';
-import {API_URL} from '../variables';
+import {faBars, faPowerOff} from '@fortawesome/pro-solid-svg-icons';
+import {API_URL, colors} from '../variables';
 
-import {SignoutButton} from '../components';
-import {StyledText} from '../sharedStyles';
+import {StyledTextWhite} from '../sharedStyles';
 
 export const CustomDrawerContent = (props: any) => {
-  const {fridgeCode, fridgeId, setCode} = useContext(AuthContext);
+  const {fridgeCode, fridgeId, setCode, logout} = useContext(AuthContext);
   const {sendRequest} = useHttpClient();
 
   useEffect(() => {
@@ -40,11 +40,19 @@ export const CustomDrawerContent = (props: any) => {
     }
   }, [fridgeCode, fridgeId, sendRequest, setCode]);
   return (
-    <DrawerContentScrollView>
+    <DrawerContentScrollView style={{backgroundColor: colors.secondary}}>
       <DrawerItemList {...props} />
-      <SignoutButton />
+      <DrawerItem
+        label="Sign Out"
+        inactiveTintColor="white"
+        onPress={() => logout()}
+        icon={({color}) => (
+          <FontAwesomeIcon icon={faPowerOff} color={color} size={20} />
+        )}
+      />
+
       <View style={{width: '100%', alignItems: 'center', marginTop: '5%'}}>
-        <StyledText selectable={true}>CODE: {fridgeCode}</StyledText>
+        <StyledTextWhite selectable={true}>CODE: {fridgeCode}</StyledTextWhite>
       </View>
     </DrawerContentScrollView>
   );

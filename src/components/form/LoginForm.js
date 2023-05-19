@@ -6,7 +6,7 @@ import {AuthContext} from '../../context/auth-context';
 import {useDispatch} from 'react-redux';
 import {setFridgeCode, setFridgeId} from '../../store/fridgeItems';
 import {API_URL} from '../../variables';
-import {StyledText} from '../../sharedStyles';
+import {StyledTextWhite} from '../../sharedStyles';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -272,7 +272,7 @@ const LoginForm = () => {
             </>
           )}
           <View style={{alignItems: 'center'}}>
-            {error && <StyledText>{error}</StyledText>}
+            {error && <StyledTextWhite>{error}</StyledTextWhite>}
             <CustomButton
               title={isLoginMode ? 'Login' : 'SignUp'}
               onPress={authSubmitHandler}

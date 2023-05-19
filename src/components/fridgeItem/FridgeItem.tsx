@@ -7,7 +7,7 @@ import {
   StyledAmount,
 } from './StyledFridgeItem';
 
-import {StyledTextWhite, StyledText} from '../../sharedStyles';
+import {StyledTextWhite} from '../../sharedStyles';
 import {View} from 'react-native';
 import moment from 'moment';
 
@@ -58,12 +58,12 @@ const FridgeItem = ({item}: any) => {
         )}
       </View>
       <StyledRemainingBox>
-        <StyledText>
+        <StyledTextWhite>
           Remaining:{' '}
           {item.fixedAmount === 0
             ? 0
             : item.fixedAmount || item.estimatedAmount}
-        </StyledText>
+        </StyledTextWhite>
         <StyledDate>
           <StyledTextWhite
             style={{color: color ? color : 'white', fontWeight: 'bold'}}>

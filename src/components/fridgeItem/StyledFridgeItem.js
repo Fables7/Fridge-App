@@ -20,7 +20,7 @@ export const StyledTitleBox = styled.View`
   height: 50px;
   width: auto;
   /* max-width: 100%; */
-  background-color: ${colors.gray};
+  background-color: ${colors.secondary};
   justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
@@ -30,7 +30,7 @@ export const StyledTitleBox = styled.View`
 export const StyledAmount = styled.View`
   height: 50px;
   width: 40px;
-  background-color: ${colors.gray};
+  background-color: ${colors.secondary};
   border-top-right-radius: 10px;
   border-bottom-left-radius: 10px;
   justify-content: center;
@@ -40,7 +40,7 @@ export const StyledAmount = styled.View`
 export const StyledRemainingBox = styled.View`
   height: 40px;
   width: 100%;
-  background-color: ${colors.lightGreen};
+  background-color: ${colors.secondary};
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -55,5 +55,5 @@ export const StyledDate = styled.View`
   padding-left: 10px;
   padding-right: 10px;
   border-top-left-radius: 10px;
-  background-color: ${colors.gray};
+  background-color: ${colors.tertiary};
 `;
