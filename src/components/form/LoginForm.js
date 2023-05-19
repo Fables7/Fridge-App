@@ -279,6 +279,7 @@ const LoginForm = () => {
               style={{marginVertical: '5%', width: 300}}
             />
             <CustomButton
+              style={{width: 180}}
               title={`Switch to ${isLoginMode ? 'SignUp' : 'Login'}`}
               onPress={() => {
                 setIsLoginMode(!isLoginMode);

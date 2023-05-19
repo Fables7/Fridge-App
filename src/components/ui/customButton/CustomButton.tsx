@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {StyledTextWhite} from '../../../sharedStyles';
+import {StyledText} from '../../../sharedStyles';
 import {StyledButton} from './StyledCustomButton';
 
 interface ICustomButton {
@@ -26,7 +26,7 @@ const CustomButton = ({
       style={style}
       selected={selected}
       disabled={disabled}>
-      <StyledTextWhite>{title}</StyledTextWhite>
+      <StyledText>{title}</StyledText>
     </StyledButton>
   );
 };
