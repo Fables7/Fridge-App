@@ -31,7 +31,12 @@ const NewItemCard = ({quantity, setQuantity, setExpDate, expDate}) => {
       />
 
       <StyledButton
-        style={{width: '100%', height: 50, marginVertical: 20}}
+        style={{
+          width: 300,
+          height: 50,
+          marginVertical: 20,
+          alignItems: 'flex-start',
+        }}
         onPress={() => setShowDate(true)}
         title={`${expDate}`}>
         <StyledText>Exp. Date: {dateString.format('DD/MM/YY')}</StyledText>

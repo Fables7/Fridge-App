@@ -12,6 +12,8 @@ export const StyledCard = styled.ScrollView`
 `;
 
 export const StyledButton = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
   background-color: white;
   border-radius: 10px;
   padding: 10px;

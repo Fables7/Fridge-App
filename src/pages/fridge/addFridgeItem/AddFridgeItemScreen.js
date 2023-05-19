@@ -1,13 +1,14 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Text, Button, StyleSheet, View, ActivityIndicator} from 'react-native';
+import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 import {useHttpClient} from '../../../hooks/http-hook';
 import FridgeItemCard from './fridgeItemCard/FridgeItemCard';
 import ItemsListCard from './itemsListCard/ItemsListCard';
 import {StyledMain, StyledFooter, CameraContainer} from './StyledAddItem';
 import {AuthContext} from '../../../context/auth-context';
-import {API_URL} from '../../../variables';
+import {API_URL, colors} from '../../../variables';
 import {Loading} from '../../../components';
+import {StyledText} from '../../../sharedStyles';
 
 const AddFridgeItemScreen = ({navigation}) => {
   const auth = useContext(AuthContext);
@@ -145,7 +146,17 @@ const AddFridgeItemScreen = ({navigation}) => {
       <StyledFooter scanned={scanned}>
         {scanned && !isLoading && (
           <View style={{width: '100%'}}>
-            <Button title={'Tap to Scan Again'} onPress={handleRescan} />
+            <TouchableOpacity
+              onPress={handleRescan}
+              style={{
+                width: '100%',
+                backgroundColor: colors.turquoise,
+                height: 35,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <StyledText>TAP TO SCAN AGAIN</StyledText>
+            </TouchableOpacity>
           </View>
         )}
         {isLoading ? (
