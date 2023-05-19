@@ -6,9 +6,7 @@ export const StyledFridgeItem = styled.ImageBackground`
   border-radius: 10px;
   height: 170px;
   margin-bottom: 10px;
-
   overflow: hidden;
-
   align-items: flex-start;
   justify-content: space-between;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);

@@ -1,8 +1,15 @@
 import React from 'react';
 import {ActivityIndicator, StyleSheet} from 'react-native';
+import {colors} from '../../variables';
 
 export default function Loading() {
-  return <ActivityIndicator size="large" style={styles.loading} />;
+  return (
+    <ActivityIndicator
+      size="large"
+      style={styles.loading}
+      color={colors.turquoise}
+    />
+  );
 }
 
 const styles = StyleSheet.create({

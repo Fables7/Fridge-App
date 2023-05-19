@@ -34,7 +34,8 @@ const FridgeItem = ({item}: any) => {
   return (
     <StyledFridgeItem
       resizeMode="cover"
-      style={{elevation: 7, shadowColor: 'black'}}
+      imageStyle={{borderRadius: 12}}
+      style={{backgroundColor: 'black'}}
       source={{
         uri:
           item.product.image ||
