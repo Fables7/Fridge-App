@@ -10,7 +10,7 @@ import {useHttpClient} from '../hooks/http-hook';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {TouchableOpacity, View} from 'react-native';
-import {faBars, faPowerOff} from '@fortawesome/pro-solid-svg-icons';
+import {faBars, faPowerOff} from '@fortawesome/free-solid-svg-icons';
 import {API_URL, colors} from '../variables';
 
 import {StyledTextWhite} from '../sharedStyles';

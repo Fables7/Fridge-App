@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyledIncrementButton} from './StyledIncrementButton';
-import {faPlus, faMinus} from '@fortawesome/pro-solid-svg-icons';
+import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 

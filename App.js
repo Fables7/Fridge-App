@@ -31,13 +31,13 @@ import {
 import {colors} from './src/variables';
 import {
   faPlus,
-  faRefrigerator,
+  faHouse,
   faListCheck,
-  faHourglassClock,
+  faHourglassHalf,
   faHourglassEnd,
-  faFaceThinking,
+  faUtensils,
   faRepeat,
-} from '@fortawesome/pro-solid-svg-icons';
+} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const Stack = createNativeStackNavigator();
@@ -55,7 +55,7 @@ const renderAddItemOptions = ({navigation}) => ({
     />
   ),
   drawerIcon: ({color}) => (
-    <FontAwesomeIcon icon={faRefrigerator} size={20} color={color} />
+    <FontAwesomeIcon icon={faHouse} size={20} color={color} />
   ),
 });
 
@@ -100,7 +100,7 @@ const Root = () => {
         component={ExpiringSoonScreen}
         options={{
           drawerIcon: ({color}) => (
-            <FontAwesomeIcon icon={faHourglassClock} size={20} color={color} />
+            <FontAwesomeIcon icon={faHourglassHalf} size={20} color={color} />
           ),
         }}
       />
@@ -118,7 +118,7 @@ const Root = () => {
         component={RecipesScreen}
         options={{
           drawerIcon: ({color}) => (
-            <FontAwesomeIcon icon={faFaceThinking} size={20} color={color} />
+            <FontAwesomeIcon icon={faUtensils} size={20} color={color} />
           ),
         }}
       />

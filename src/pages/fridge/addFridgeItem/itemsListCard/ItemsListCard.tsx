@@ -5,7 +5,7 @@ import {StyledText} from '../../../../sharedStyles';
 import {StyledCard, StyledButton, StyledItem} from './StyledItemsList';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faBasketShopping} from '@fortawesome/pro-solid-svg-icons';
+import {faBasketShopping} from '@fortawesome/free-solid-svg-icons';
 import {IncrementButton} from '../../../../components';
 
 const ItemsListCard = ({
