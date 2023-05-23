@@ -9,4 +9,6 @@ export const AuthContext = createContext({
   login: () => {},
   logout: () => {},
   setCode: () => {},
+  setFridge: () => {},
+  resetFridge: () => {},
 });

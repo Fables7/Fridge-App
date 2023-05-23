@@ -5,6 +5,7 @@ export {default as ExpiringSoonScreen} from './expiring/ExpiringSoonScreen';
 export {default as ExpiredScreen} from './expired/ExpiredScreen';
 export {default as RecipesScreen} from './recipes/RecipesScreen';
 export {default as RecurringItemsScreen} from './recurring/RecurringItemsScreen';
+export {default as DashboardScreen} from './dashboard/DashboardScreen';
 
 // Fridge Page
 export {default as FridgeScreen} from './fridge/FridgeScreen';

@@ -10,10 +10,36 @@ export const useAuth = () => {
   const [fridgeId, setFridgeId] = useState(false);
   const [fridgeCode, setFridgeCode] = useState(false);
 
-  const login = useCallback(async (uid, newToken, fridgeID, expirationDate) => {
+  const setFridge = useCallback(async (fridgeID, code) => {
+    setFridgeId(fridgeID);
+    setFridgeCode(code);
+
+    try {
+      await AsyncStorage.setItem(
+        'fridgeData',
+        JSON.stringify({fridgeID, code}),
+      );
+      console.log('code set');
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const resetFridge = useCallback(async () => {
+    setFridgeId(null);
+    setFridgeCode(null);
+    try {
+      await AsyncStorage.removeItem('fridgeData');
+      console.log('Fridge reset');
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const login = useCallback(async (uid, newToken, expirationDate) => {
     setToken(newToken);
     setUserId(uid);
-    setFridgeId(fridgeID);
+    // setFridgeId(fridgeID);
     const newTokenExpirationDate =
       expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
 
@@ -24,7 +50,7 @@ export const useAuth = () => {
         JSON.stringify({
           userId: uid,
           token: newToken,
-          fridgeId: fridgeID,
+          // fridgeId: fridgeID,
           expirationDate: newTokenExpirationDate.toISOString(),
         }),
       );
@@ -38,9 +64,10 @@ export const useAuth = () => {
     setToken(null);
     setUserId(null);
     setFridgeId(null);
+    setFridgeCode(null);
     setTokenExpirationDate(null);
     try {
-      await AsyncStorage.removeItem('userData');
+      await AsyncStorage.removeItem('userData', 'fridgeData');
       console.log('signed out');
     } catch (err) {
       console.log(err);
@@ -56,6 +83,18 @@ export const useAuth = () => {
       console.log(err);
     }
   }, []);
+
+  useEffect(() => {
+    const trySetFridge = async () => {
+      const fridgeData = await AsyncStorage.getItem('fridgeData');
+      if (fridgeData) {
+        const parsedFridgeData = JSON.parse(fridgeData);
+        setFridgeId(parsedFridgeData.fridgeID);
+        setFridgeCode(parsedFridgeData.code);
+      }
+    };
+    trySetFridge();
+  }, [setFridge]);
 
   useEffect(() => {
     const tryCode = async () => {
@@ -85,7 +124,7 @@ export const useAuth = () => {
         login(
           parsedUserData.userId,
           parsedUserData.token,
-          parsedUserData.fridgeId,
+          // parsedUserData.fridgeId,
           //   new Date(userData.expirationDate),
         );
       }
@@ -95,5 +134,15 @@ export const useAuth = () => {
     console.log('ran');
   }, [login]);
 
-  return {token, login, logout, userId, fridgeId, fridgeCode, setCode};
+  return {
+    token,
+    login,
+    logout,
+    userId,
+    fridgeId,
+    fridgeCode,
+    setCode,
+    resetFridge,
+    setFridge,
+  };
 };

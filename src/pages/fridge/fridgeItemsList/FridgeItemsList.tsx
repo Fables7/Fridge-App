@@ -38,7 +38,6 @@ const FridgeItemsList = ({navigation}: any) => {
               'Content-Type': 'application/json',
             },
           );
-          // console.log(responseData.data);
           dispatch(setFridgeItems(responseData.data));
           if (responseData.data.length > 0) {
             const filteredItems = responseData.data.reduce(

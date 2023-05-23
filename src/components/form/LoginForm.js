@@ -151,7 +151,7 @@ const LoginForm = () => {
         auth.login(
           responseData.data.user._id,
           responseData.token,
-          responseData.data.user.fridgeId,
+          // responseData.data.user.fridgeId,
         );
 
         console.log('success');
@@ -190,7 +190,7 @@ const LoginForm = () => {
         auth.login(
           responseData.data.user._id,
           responseData.token,
-          responseData.data.fridgeId,
+          // responseData.data.fridgeId,
         );
         dispatch(setFridgeId(fridgeId.data.id));
         dispatch(setFridgeCode(fridgeCode));

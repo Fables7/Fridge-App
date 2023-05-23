@@ -16,6 +16,7 @@ import {
   RecurringItemsScreen,
   ItemDetailsScreen,
   ExpiredScreen,
+  DashboardScreen,
 } from './src/pages';
 
 import {Provider} from 'react-redux';
@@ -27,6 +28,7 @@ import {
   CustomDrawerContent,
   HeaderRight,
   HeaderLeft,
+  HeaderLeftLogOut,
 } from './src/navigation/CustomDrawerContent';
 import {colors} from './src/variables';
 import {
@@ -62,6 +64,7 @@ const renderAddItemOptions = ({navigation}) => ({
 const renderRootNavOptions = ({navigation}) => ({
   // headerShown: false,
   drawerActiveTintColor: colors.turquoise,
+  headerShadowVisible: false,
   drawerInactiveTintColor: 'white',
   headerTitleAlign: 'center',
   headerStyle: {
@@ -136,13 +139,43 @@ const Root = () => {
 };
 
 function App() {
-  const {token, login, logout, userId, fridgeId, fridgeCode, setCode} =
-    useAuth();
+  const {
+    token,
+    login,
+    logout,
+    userId,
+    fridgeId,
+    fridgeCode,
+    setCode,
+    setFridge,
+    resetFridge,
+  } = useAuth();
   let routes;
 
   if (token) {
     routes = (
       <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen
+          name="Dashboard"
+          component={DashboardScreen}
+          options={{
+            headerShown: true,
+            headerShadowVisible: false,
+            drawerActiveTintColor: colors.turquoise,
+            drawerInactiveTintColor: 'white',
+            headerTitleAlign: 'center',
+            headerStyle: {
+              backgroundColor: colors.secondary,
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+            },
+            headerTitleStyle: {
+              color: 'white',
+            },
+            headerLeft: () => <HeaderLeftLogOut />,
+          }}
+        />
         <Stack.Screen name="Root" component={Root} />
         <Stack.Screen name="AddFridgeItem" component={AddFridgeItemScreen} />
         <Stack.Screen name="ItemDetails" component={ItemDetailsScreen} />
@@ -169,6 +202,8 @@ function App() {
           logout: logout,
           fridgeId: fridgeId,
           fridgeCode: fridgeCode,
+          setFridge: setFridge,
+          resetFridge: resetFridge,
         }}>
         <NavigationContainer>{routes}</NavigationContainer>
       </AuthContext.Provider>
