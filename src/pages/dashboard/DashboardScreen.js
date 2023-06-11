@@ -163,7 +163,7 @@ const DashboardScreen = ({navigation}) => {
         {isLoading ? (
           <Loading />
         ) : (
-          <GestureHandlerRootView style={{flex: 1, borderWidth: 1}}>
+          <GestureHandlerRootView style={{flex: 1}}>
             <FlatList
               data={joinedFridges}
               style={styles.list}

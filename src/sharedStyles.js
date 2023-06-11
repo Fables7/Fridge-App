@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {colors} from './variables';
 
-export const StyledMain = styled.View`
+export const StyledMain = styled.SafeAreaView`
   background-color: ${colors.primary};
   flex: 1;
 `;
