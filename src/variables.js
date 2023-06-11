@@ -10,4 +10,6 @@ export const colors = {
   tertiary: '#3A506B',
 };
 
-export const API_URL = '';
+const {serverIP} = require('./config');
+
+export const API_URL = serverIP;

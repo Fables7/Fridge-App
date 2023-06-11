@@ -67,3 +67,4 @@ android/app/in-the-fridge.keystore
 
 # holds password for secret key
 android/gradle.properties
+src/config.js
