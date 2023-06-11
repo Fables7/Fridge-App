@@ -67,7 +67,8 @@ export const useAuth = () => {
     setFridgeCode(null);
     setTokenExpirationDate(null);
     try {
-      await AsyncStorage.removeItem('userData', 'fridgeData');
+      await AsyncStorage.removeItem('userData');
+      await AsyncStorage.removeItem('fridgeData');
       console.log('signed out');
     } catch (err) {
       console.log(err);

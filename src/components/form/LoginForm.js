@@ -1,10 +1,9 @@
 import React, {useState, useEffect, useContext, useCallback} from 'react';
-import {View} from 'react-native';
+import {View, KeyboardAvoidingView, Platform} from 'react-native';
 import {CustomInput, CustomButton, Loading} from '..';
 import {useHttpClient} from '../../hooks/http-hook';
 import {AuthContext} from '../../context/auth-context';
-import {useDispatch} from 'react-redux';
-import {setFridgeCode, setFridgeId} from '../../store/fridgeItems';
+
 import {API_URL} from '../../variables';
 import {StyledTextWhite} from '../../sharedStyles';
 
@@ -12,7 +11,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [fridgeCode, setFridgeCodeState] = useState('');
+
   const [name, setName] = useState('');
   const [error, setError] = useState();
   const [errors, setErrors] = useState({});
@@ -23,7 +22,7 @@ const LoginForm = () => {
   const [loginValid, setLoginValid] = useState(false);
   const [signupValid, setSignupValid] = useState(false);
   const auth = useContext(AuthContext);
-  const dispatch = useDispatch();
+
   useEffect(() => {
     const isEmailValid = validateInput('email', email) === '';
     const isPasswordValid = validateInput('password', password) === '';
@@ -35,7 +34,6 @@ const LoginForm = () => {
     } else if (
       !isLoginMode &&
       name &&
-      fridgeCode &&
       isEmailValid &&
       isPasswordValid &&
       isConfirmPasswordValid
@@ -45,15 +43,7 @@ const LoginForm = () => {
       setLoginValid(false);
       setSignupValid(false);
     }
-  }, [
-    email,
-    password,
-    confirmPassword,
-    name,
-    fridgeCode,
-    isLoginMode,
-    validateInput,
-  ]);
+  }, [email, password, confirmPassword, name, isLoginMode, validateInput]);
 
   const validateInput = useCallback(
     (inputName, inputValue) => {
@@ -77,11 +67,6 @@ const LoginForm = () => {
         case 'name':
           if (inputValue.length === 0) {
             return 'Enter a name';
-          }
-          break;
-        case 'fridgeCode':
-          if (inputValue.length === 0) {
-            return 'Enter a Fridge Code';
           }
           break;
         default:
@@ -122,14 +107,13 @@ const LoginForm = () => {
         confirmPassword,
       );
       const nameError = validateInput('name', name);
-      const fridgeCodeError = validateInput('fridgeCode', fridgeCode);
+
       setErrors(prevErrors => ({
         ...prevErrors,
         email: emailError,
         password: passwordError,
         confirmPassword: confirmPasswordError,
         name: nameError,
-        fridgeCode: fridgeCodeError,
       }));
       return;
     }
@@ -164,14 +148,6 @@ const LoginForm = () => {
     } else if (!isLoginMode && signupValid) {
       setIsLoading(true);
       try {
-        const fridgeId = await sendRequest(
-          `${API_URL}/api/v1/fridges/code/${fridgeCode}`,
-          'GET',
-          null,
-          {
-            'Content-Type': 'application/json',
-          },
-        );
         const responseData = await sendRequest(
           `${API_URL}/api/v1/users/signup`,
           'POST',
@@ -180,7 +156,6 @@ const LoginForm = () => {
             email: email,
             password: password,
             passwordConfirm: confirmPassword,
-            fridgeId: fridgeId.data.id,
           }),
           {
             'Content-Type': 'application/json',
@@ -192,8 +167,7 @@ const LoginForm = () => {
           responseData.token,
           // responseData.data.fridgeId,
         );
-        dispatch(setFridgeId(fridgeId.data.id));
-        dispatch(setFridgeCode(fridgeCode));
+
         console.log('success');
         setIsLoading(false);
       } catch (err) {
@@ -209,7 +183,9 @@ const LoginForm = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <View style={{width: '100%', alignItems: 'center'}}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' && 'padding'}
+          style={{width: '100%', alignItems: 'center'}}>
           {!isLoginMode && (
             <>
               <CustomInput
@@ -219,18 +195,6 @@ const LoginForm = () => {
                 onChangeText={e => setName(e)}
                 onBlur={() => handleInputChange('name', name)}
                 errMsg={errors.name}
-              />
-            </>
-          )}
-          {!isLoginMode && (
-            <>
-              <CustomInput
-                title="Fridge Code"
-                placeholder="Enter Fridge Code"
-                value={fridgeCode}
-                onChangeText={e => setFridgeCodeState(e)}
-                onBlur={() => handleInputChange('fridgeCode', fridgeCode)}
-                errMsg={errors.fridgeCode}
               />
             </>
           )}
@@ -288,7 +252,7 @@ const LoginForm = () => {
               }}
             />
           </View>
-        </View>
+        </KeyboardAvoidingView>
       )}
     </>
   );
