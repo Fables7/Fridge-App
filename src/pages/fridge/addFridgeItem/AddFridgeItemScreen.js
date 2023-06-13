@@ -32,8 +32,8 @@ const AddFridgeItemScreen = ({navigation}) => {
     console.log('newItem', newItem);
     const existingItem = items.find(
       item =>
-        item.productID === newItem.productID &&
-        moment(item.expiryDate).isSame(newItem.expiryDate, 'day'),
+        item.product === newItem.product &&
+        moment(item.expDate).isSame(newItem.expDate, 'day'),
     );
 
     if (existingItem) {
