@@ -7,6 +7,7 @@ import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faBasketShopping} from '@fortawesome/free-solid-svg-icons';
 import {IncrementButton} from '../../../../components';
+import moment from 'moment';
 
 const ItemsListCard = ({
   items,
@@ -40,6 +41,7 @@ const ItemsListCard = ({
               data={items}
               keyExtractor={item => item.expDate}
               renderItem={({item, index}: any) => {
+                const date = moment(item.expDate).format('DD/MM/YYYY');
                 return (
                   <Swipeable
                     renderRightActions={() => RightButton(index)}
@@ -59,6 +61,7 @@ const ItemsListCard = ({
                         <FontAwesomeIcon icon={faBasketShopping} size={25} />
                       </View>
                     </StyledItem>
+                    <StyledText style={{marginTop: -10}}>{date}</StyledText>
                   </Swipeable>
                 );
               }}
