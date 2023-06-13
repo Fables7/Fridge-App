@@ -9,6 +9,7 @@ import {AuthContext} from '../../../context/auth-context';
 import {API_URL, colors} from '../../../variables';
 import {Loading} from '../../../components';
 import {StyledText} from '../../../sharedStyles';
+import moment from 'moment';
 
 const AddFridgeItemScreen = ({navigation}) => {
   const auth = useContext(AuthContext);
@@ -22,8 +23,30 @@ const AddFridgeItemScreen = ({navigation}) => {
 
   const [items, setItems] = useState([]);
 
-  const addItem = item => {
-    setItems([...items, item]);
+  // const addItem = item => {
+  //   setItems([...items, item]);
+  // };
+
+  const addItem = newItem => {
+    console.log('items', items);
+    console.log('newItem', newItem);
+    const existingItem = items.find(
+      item =>
+        item.productID === newItem.productID &&
+        moment(item.expiryDate).isSame(newItem.expiryDate, 'day'),
+    );
+
+    if (existingItem) {
+      const updatedItems = items.map(item => {
+        if (item === existingItem) {
+          return {...item, quantity: item.quantity + newItem.quantity};
+        }
+        return item;
+      });
+      setItems(updatedItems);
+    } else {
+      setItems([...items, newItem]);
+    }
   };
 
   const expandItemsByQuantity = fridgeItems => {
