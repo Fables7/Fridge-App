@@ -38,7 +38,7 @@ const ItemsListCard = ({
             <FlatList
               style={{width: '100%'}}
               data={items}
-              keyExtractor={item => item.product}
+              keyExtractor={item => item.expDate}
               renderItem={({item, index}: any) => {
                 return (
                   <Swipeable
