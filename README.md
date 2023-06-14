@@ -16,3 +16,9 @@ images into the database, as urls take up much less space.
 
 # DISCLAIMER
 As this apps main target is my Family, I have not attempted to make my database robust in the sense of managing who can upload images and edit products, however if the need to update this ever arises I will fix it accordingly, but for now I have decided that it is unnecessary.
+
+# Things to add
+- What can I make page (using soon to expire food)
+- Setting recurring items
+- Need to buy list
+  
