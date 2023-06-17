@@ -17,6 +17,7 @@ import {
   ItemDetailsScreen,
   ExpiredScreen,
   DashboardScreen,
+  EditItemScreen,
 } from './src/pages';
 
 import {Provider} from 'react-redux';
@@ -39,6 +40,7 @@ import {
   faHourglassEnd,
   faUtensils,
   faRepeat,
+  faEdit,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
@@ -138,6 +140,32 @@ const Root = () => {
   );
 };
 
+const ItemDetailsNav = ({navigation}) => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="ItemDetails"
+        component={ItemDetailsScreen}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: colors.secondary,
+          },
+          headerTitle: '',
+          headerBackVisible: false,
+          headerRight: () => (
+            <HeaderRight
+              icon={faEdit}
+              onPress={() => navigation.navigate('EditItem')}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen name="EditItem" component={EditItemScreen} />
+    </Stack.Navigator>
+  );
+};
+
 function App() {
   const {
     token,
@@ -178,7 +206,7 @@ function App() {
         />
         <Stack.Screen name="Root" component={Root} />
         <Stack.Screen name="AddFridgeItem" component={AddFridgeItemScreen} />
-        <Stack.Screen name="ItemDetails" component={ItemDetailsScreen} />
+        <Stack.Screen name="ItemDetailsNav" component={ItemDetailsNav} />
       </Stack.Navigator>
     );
   } else {

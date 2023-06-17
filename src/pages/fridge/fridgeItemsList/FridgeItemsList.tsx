@@ -123,8 +123,11 @@ const FridgeItemsList = ({navigation}: any) => {
               <TouchableOpacity
                 activeOpacity={0.9}
                 onPress={() =>
-                  navigation.navigate('ItemDetails', {
-                    productId: item.product._id,
+                  navigation.navigate('ItemDetailsNav', {
+                    screen: 'ItemDetails',
+                    params: {
+                      productId: item.product._id,
+                    },
                   })
                 }>
                 <FridgeItem item={item} />
