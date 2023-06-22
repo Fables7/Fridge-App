@@ -22,3 +22,5 @@ As this apps main target is my Family, I have not attempted to make my database 
 - Setting recurring items
 - Need to buy list
   
+# Future code updates
+- Need to change to Axios and REact Query instead of my existing Fetch requests to optimise app and follow better practices
