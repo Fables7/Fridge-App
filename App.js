@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
 
 import {
   SplashScreen,
@@ -21,6 +22,7 @@ import {colors} from './src/variables';
 import {Root, ItemDetailsNav} from './src/navigation/navigation';
 
 const Stack = createNativeStackNavigator();
+const queryClient = new QueryClient();
 
 function App() {
   const {
@@ -75,23 +77,25 @@ function App() {
   }
 
   return (
-    <Provider store={store}>
-      <AuthContext.Provider
-        value={{
-          isLoggedIn: !!token,
-          token: token,
-          userId: userId,
-          setCode: setCode,
-          login: login,
-          logout: logout,
-          fridgeId: fridgeId,
-          fridgeCode: fridgeCode,
-          setFridge: setFridge,
-          resetFridge: resetFridge,
-        }}>
-        <NavigationContainer>{routes}</NavigationContainer>
-      </AuthContext.Provider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <AuthContext.Provider
+          value={{
+            isLoggedIn: !!token,
+            token: token,
+            userId: userId,
+            setCode: setCode,
+            login: login,
+            logout: logout,
+            fridgeId: fridgeId,
+            fridgeCode: fridgeCode,
+            setFridge: setFridge,
+            resetFridge: resetFridge,
+          }}>
+          <NavigationContainer>{routes}</NavigationContainer>
+        </AuthContext.Provider>
+      </Provider>
+    </QueryClientProvider>
   );
 }
 
