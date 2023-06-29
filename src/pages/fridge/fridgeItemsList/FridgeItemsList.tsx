@@ -9,12 +9,13 @@ import {
 import {useFocusEffect} from '@react-navigation/native';
 
 import {FridgeItem, Loading} from '../../../components';
-import {UseGetHomeFridgeItems} from '../../../hooks/getAllFridgeItemsQuery';
+import {useGetHomeFridgeItems} from '../../../hooks/getAllFridgeItemsQuery';
 
 // TODO THIS COMPONENT RE RENDERS 4 TIMES ON INITIAL LOAD
 
 const FridgeItemsList = ({navigation}: any) => {
-  const {data, refetch, isLoading} = UseGetHomeFridgeItems();
+  const {data, refetch, isLoading} = useGetHomeFridgeItems();
+  console.log('data', data);
 
   useFocusEffect(
     React.useCallback(() => {

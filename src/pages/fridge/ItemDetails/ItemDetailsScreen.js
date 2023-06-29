@@ -1,20 +1,25 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, {useEffect, useContext, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
-import {useHttpClient} from '../../../hooks/http-hook';
-import {AuthContext} from '../../../context/auth-context';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
-import {FridgeItem} from '../../../components';
-import {IncrementButton, CustomButton} from '../../../components';
-import {API_URL} from '../../../variables';
+
+import {
+  IncrementButton,
+  CustomButton,
+  FridgeItem,
+  Loading,
+} from '../../../components';
+
+import {
+  useGetItemDetails,
+  useSaveItemDetails,
+} from '../../../hooks/getAllFridgeItemsQuery';
 
 // Styles
 import {StyledMain, StyledText} from '../../../sharedStyles';
 import {StyledButtons, NumDisplay} from './StyledItemDetails';
 
 export const ItemDetailsScreen = ({route, navigation}) => {
-  const {sendRequest} = useHttpClient();
-  const auth = useContext(AuthContext);
   const {productId} = route.params;
   const estimatedWords = [
     'full',
@@ -25,26 +30,18 @@ export const ItemDetailsScreen = ({route, navigation}) => {
     'empty',
   ];
 
-  const [items, setItems] = useState([]);
+  const {data, isLoading} = useGetItemDetails(productId);
+  const {mutate, error} = useSaveItemDetails();
+  console.log('isLoading:', isLoading);
+  console.log('data:', data);
+
+  const [items, setItems] = useState(data || []);
 
   useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const responseData = await sendRequest(
-          `${API_URL}/api/v1/fridges/${auth.fridgeId}/items/product/${productId}`,
-          'GET',
-          null,
-          {
-            'Content-Type': 'application/json',
-          },
-        );
-        setItems(responseData.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchItems();
-  }, [auth.fridgeId, productId, sendRequest]);
+    if (data) {
+      setItems(data);
+    }
+  }, [data]);
 
   const decreaseQuantity = index => {
     const newItems = [...items];
@@ -124,58 +121,46 @@ export const ItemDetailsScreen = ({route, navigation}) => {
         itemsToUpdate.push(item);
       }
     });
-
-    try {
-      if (itemsToDelete.length > 0) {
-        console.log('Deleting Items', itemsToDelete);
-
-        await sendRequest(
-          `${API_URL}/api/v1/fridges/${
-            auth.fridgeId
-          }/items?ids=${itemsToDelete.join(',')}`,
-          'DELETE',
-        );
-      }
-      if (itemsToUpdate.length > 0) {
-        console.log('Updating Items', itemsToUpdate);
-        await sendRequest(
-          `${API_URL}/api/v1/fridges/${auth.fridgeId}/items`,
-          'PATCH',
-          JSON.stringify(itemsToUpdate),
-          {
-            'Content-Type': 'application/json',
-          },
-        );
-      }
-      navigation.goBack();
-    } catch (err) {
-      console.log(err);
+    await mutate({itemsToDelete, itemsToUpdate});
+    if (error) {
+      console.log('item details save error', error);
+      return;
     }
+
+    navigation.goBack();
   };
+
+  // TODO add loading
 
   return (
     <StyledMain style={{alignItems: 'center', paddingVertical: 20}}>
-      <GestureHandlerRootView
-        style={{
-          flex: 1,
-        }}>
-        <FlatList
-          data={items}
-          style={{flex: 1, paddingHorizontal: '5%'}}
-          renderItem={({item, index}) => {
-            return (
-              <Swipeable renderRightActions={() => RightButton(index)}>
-                <FridgeItem item={item} />
-              </Swipeable>
-            );
-          }}
-        />
-      </GestureHandlerRootView>
-      <CustomButton
-        style={{width: '90%', height: 50, marginBottom: 30}}
-        title="Save"
-        onPress={SaveHandler}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <GestureHandlerRootView
+            style={{
+              flex: 1,
+            }}>
+            <FlatList
+              data={items}
+              style={{flex: 1, paddingHorizontal: '5%'}}
+              renderItem={({item, index}) => {
+                return (
+                  <Swipeable renderRightActions={() => RightButton(index)}>
+                    <FridgeItem item={item} />
+                  </Swipeable>
+                );
+              }}
+            />
+          </GestureHandlerRootView>
+          <CustomButton
+            style={{width: '90%', height: 50, marginBottom: 30}}
+            title="Save"
+            onPress={SaveHandler}
+          />
+        </>
+      )}
     </StyledMain>
   );
 };

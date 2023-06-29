@@ -1,4 +1,4 @@
-import {useQuery} from '@tanstack/react-query';
+import {useMutation, useQuery} from '@tanstack/react-query';
 import axios from 'axios';
 import {API_URL} from '../variables';
 import {useContext} from 'react';
@@ -6,12 +6,12 @@ import {AuthContext} from '../context/auth-context';
 import {useDispatch} from 'react-redux';
 import {setFridgeItems} from '../store/fridgeItems';
 
-export const UseGetHomeFridgeItems = () => {
+export const useGetHomeFridgeItems = () => {
   const dispatch = useDispatch();
   const auth = useContext(AuthContext);
 
   const {isLoading, data, error, status, refetch} = useQuery(
-    ['fridgeItems'],
+    ['homeFridgeItems'],
     async () => {
       const {data: responseData} = await axios.get(
         `${API_URL}/api/v1/fridges/${auth.fridgeId}/items?sort=expDate&expired=false`,
@@ -67,4 +67,43 @@ export const UseGetHomeFridgeItems = () => {
   );
 
   return {data, isLoading, error, status, refetch};
+};
+
+export const useGetItemDetails = (productId: any) => {
+  const auth = useContext(AuthContext);
+
+  const {isLoading, data, error, status, refetch} = useQuery(
+    ['itemDetails'],
+    async () => {
+      const {data: responseData} = await axios.get(
+        `${API_URL}/api/v1/fridges/${auth.fridgeId}/items/product/${productId}`,
+      );
+      return responseData.data;
+    },
+  );
+
+  return {data, isLoading, error, status, refetch};
+};
+
+export const useSaveItemDetails = () => {
+  const auth = useContext(AuthContext);
+
+  const {error, mutate, status, isLoading} = useMutation(
+    async ({itemsToDelete, itemsToUpdate}: any) => {
+      if (itemsToDelete.length > 0) {
+        await axios.delete(
+          `${API_URL}/api/v1/fridges/${
+            auth.fridgeId
+          }/items?ids=${itemsToDelete.join(',')}`,
+        );
+      }
+      if (itemsToUpdate.length > 0) {
+        await axios.patch(
+          `${API_URL}/api/v1/fridges/${auth.fridgeId}/items`,
+          itemsToUpdate,
+        );
+      }
+    },
+  );
+  return {error, mutate, status, isLoading};
 };
