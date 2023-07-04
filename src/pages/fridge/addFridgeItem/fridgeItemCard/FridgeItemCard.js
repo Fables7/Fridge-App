@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {StyledCard, StyledButton} from './StyledFridgeItemCard';
 import {StyledTextWhite, StyledText} from '../../../../sharedStyles';
-import {useHttpClient} from '../../../../hooks/http-hook';
 import moment from 'moment';
 import {CustomInput, CustomButton} from '../../../../components';
 import {View, KeyboardAvoidingView, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {API_URL} from '../../../../variables';
+import {useGetProduct, useAddProduct} from '../../../../hooks/getProductQuery';
 
 const NewItemCard = ({quantity, setQuantity, setExpDate, expDate}) => {
   const [showDate, setShowDate] = useState(false);
@@ -117,11 +116,8 @@ const NewProductCard = ({
 };
 
 const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
-  const {sendRequest} = useHttpClient();
-  const [productId, setProductId] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [recall, setRecall] = useState(false);
-
+  const {data, isLoading, refetch} = useGetProduct(barcode);
+  const {mutate, error: addProductError} = useAddProduct();
   // NEW ITEM
   const [quantity, setQuantity] = useState('1');
   const [expDate, setExpDate] = useState(new Date());
@@ -132,37 +128,11 @@ const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
   const [estimated, setEstimated] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
 
-  // Find if product exists in database
-  useEffect(() => {
-    const findProduct = async () => {
-      setIsLoading(true);
-      try {
-        const responseData = await sendRequest(
-          `${API_URL}/api/v1/products/barcode/${barcode}`,
-          'GET',
-          null,
-          {
-            'Content-Type': 'application/json',
-          },
-        );
-        if (responseData.status === 'success') {
-          setProductId(responseData.data.product._id);
-          setProductName(responseData.data.product.name);
-        }
-        setIsLoading(false);
-      } catch (err) {
-        console.log(err);
-        setIsLoading(false);
-      }
-    };
-    findProduct();
-  }, [barcode, sendRequest, recall]);
-
   const addProductHandler = async () => {
-    if (productId) {
+    if (data.productId) {
       addItem({
         name: productName,
-        product: productId,
+        product: data.productId,
         expDate: expDate,
         quantity: parseInt(quantity, 10) > 0 ? parseInt(quantity, 10) : 1,
       });
@@ -178,19 +148,13 @@ const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
       } else {
         productData = {...productData, fixedAmount: fixedAmount};
       }
-      try {
-        await sendRequest(
-          `${API_URL}/api/v1/products`,
-          'POST',
-          JSON.stringify(productData),
-          {
-            'Content-Type': 'application/json',
-          },
-        );
-        setRecall(!recall);
-      } catch (err) {
-        console.log(err);
+
+      mutate(productData);
+      if (addProductError) {
+        console.log('Failed to add product');
+        return;
       }
+      refetch();
     }
   };
 
@@ -200,10 +164,10 @@ const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
         {!isLoading && (
           <>
             <StyledTextWhite>
-              {productId ? name : 'New Product'}
+              {data?.productId ? name : 'New Product'}
             </StyledTextWhite>
             <KeyboardAvoidingView enabled style={{width: '80%'}}>
-              {productId ? (
+              {data?.productId ? (
                 <NewItemCard
                   {...{quantity, setQuantity, expDate, setExpDate}}
                 />
@@ -226,7 +190,7 @@ const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
             {/* <StyledTextWhite>{props.name}</StyledTextWhite> */}
 
             <StyledButton onPress={addProductHandler}>
-              <StyledText>{productId ? 'ADD' : 'CREATE'}</StyledText>
+              <StyledText>{data?.productId ? 'ADD' : 'CREATE'}</StyledText>
             </StyledButton>
           </>
         )}

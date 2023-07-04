@@ -6,6 +6,7 @@ import {AuthContext} from '../context/auth-context';
 import {useDispatch} from 'react-redux';
 import {setFridgeItems} from '../store/fridgeItems';
 
+// Get all Home Fridge items
 export const useGetHomeFridgeItems = () => {
   const dispatch = useDispatch();
   const auth = useContext(AuthContext);
@@ -69,6 +70,7 @@ export const useGetHomeFridgeItems = () => {
   return {data, isLoading, error, status, refetch};
 };
 
+// Get item details
 export const useGetItemDetails = (productId: any) => {
   const auth = useContext(AuthContext);
 
@@ -85,6 +87,7 @@ export const useGetItemDetails = (productId: any) => {
   return {data, isLoading, error, status, refetch};
 };
 
+// Save item details
 export const useSaveItemDetails = () => {
   const auth = useContext(AuthContext);
 

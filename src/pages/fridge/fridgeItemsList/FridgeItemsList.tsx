@@ -15,7 +15,6 @@ import {useGetHomeFridgeItems} from '../../../hooks/getAllFridgeItemsQuery';
 
 const FridgeItemsList = ({navigation}: any) => {
   const {data, refetch, isLoading} = useGetHomeFridgeItems();
-  console.log('data', data);
 
   useFocusEffect(
     React.useCallback(() => {
