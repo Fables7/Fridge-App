@@ -10,6 +10,7 @@ import {API_URL, colors} from '../../../variables';
 import {Loading} from '../../../components';
 import {StyledText} from '../../../sharedStyles';
 import moment from 'moment';
+import {useBarcodeScanner} from '../../../hooks/getProductQuery';
 
 const AddFridgeItemScreen = ({navigation}) => {
   const auth = useContext(AuthContext);
@@ -96,6 +97,7 @@ const AddFridgeItemScreen = ({navigation}) => {
     getBarCodeScannerPermissions();
   }, []);
 
+  // const {data: productData, error, refetch} = useBarcodeScanner(data);
   const handleBarCodeScanned = async ({type, data}) => {
     setIsLoading(true);
     setScanned(true);
