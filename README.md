@@ -28,3 +28,4 @@ As this apps main target is my Family, I have not attempted to make my database 
 
 # Things to do
 - Use Jest for testing
+- Finish converting all fetch calls to react query calls
