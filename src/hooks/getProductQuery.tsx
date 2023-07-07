@@ -39,24 +39,25 @@ export const useAddProduct = () => {
   return {mutate, isLoading, error};
 };
 
-export const useBarcodeScanner = ({data: barcode}: any) => {
-  const {isLoading, data, error, refetch} = useQuery(
-    ['barcodeScanner'],
-    async () => {
-      const {data: responseData} = await axios.get(
-        `https://world.openfoodfacts.org/api/v2/search?code=${barcode}&fields=code,product_name,_keywords`,
-      );
-      const nameExist = responseData.products.length > 0;
-      const productName = nameExist
-        ? responseData.products[0].product_name
-        : '';
+// export const useBarcodeScanner = (barcode: any) => {
+//   const {isLoading, data, error, refetch} = useQuery(
+//     ['barcodeScanner'],
+//     async () => {
+//       const {data: responseData} = await axios.get(
+//         `https://world.openfoodfacts.org/api/v2/search?code=${barcode}&fields=code,product_name,_keywords`,
+//       );
+//       const nameExist = responseData.products.length > 0;
+//       const productName = nameExist
+//         ? responseData.products[0].product_name
+//         : '';
+//       console.log('calling');
 
-      return {barcode, productName};
-    },
-    {
-      enabled: false,
-    },
-  );
+//       return {barcode, productName};
+//     },
+//     {
+//       enabled: false,
+//     },
+//   );
 
-  return {isLoading, data, error, refetch};
-};
+//   return {isLoading, data, error, refetch};
+// };

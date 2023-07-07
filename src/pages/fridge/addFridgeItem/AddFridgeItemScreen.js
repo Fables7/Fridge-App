@@ -24,10 +24,6 @@ const AddFridgeItemScreen = ({navigation}) => {
 
   const [items, setItems] = useState([]);
 
-  // const addItem = item => {
-  //   setItems([...items, item]);
-  // };
-
   const addItem = newItem => {
     console.log('items', items);
     console.log('newItem', newItem);
