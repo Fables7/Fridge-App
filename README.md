@@ -25,3 +25,7 @@ As this apps main target is my Family, I have not attempted to make my database 
 # Future code updates
 - Need to change to Axios and React Query instead of my existing Fetch requests to optimise app and follow better practices
 - Add React JoyRide to do a help tour of the app
+
+# Things to do
+- Use Jest for testing
+- Finish converting all fetch calls to react query calls
