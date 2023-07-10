@@ -21,6 +21,7 @@ As this apps main target is my Family, I have not attempted to make my database 
 - What can I make page (using soon to expire food)
 - Setting recurring items
 - Need to buy list
+- profile section with view of all joined fridges, favourited foods etc
   
 # Future code updates
 - Need to change to Axios and React Query instead of my existing Fetch requests to optimise app and follow better practices
