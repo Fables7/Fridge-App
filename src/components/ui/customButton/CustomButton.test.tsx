@@ -30,4 +30,25 @@ describe('CustomButton', () => {
     const button = getByTestId('custom-button');
     expect(button.props.accessibilityState.disabled).toBeTruthy();
   });
+
+  it('style prop should be applied', () => {
+    const onPress = jest.fn();
+    const {getByTestId} = render(
+      <CustomButton
+        title={'test'}
+        onPress={onPress}
+        style={{backgroundColor: 'red'}}
+      />,
+    );
+    const button = getByTestId('custom-button');
+    expect(button.props.style).toEqual({
+      alignItems: 'center',
+      backgroundColor: 'red',
+      width: 130,
+      height: 40,
+      justifyContent: 'center',
+      borderRadius: 15,
+      opacity: 1,
+    });
+  });
 });
