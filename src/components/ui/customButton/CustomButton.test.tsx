@@ -21,4 +21,13 @@ describe('CustomButton', () => {
     fireEvent.press(button);
     expect(onPress).toHaveBeenCalled();
   });
+
+  it('should be disabled when disabled prop is true', () => {
+    const onPress = jest.fn();
+    const {getByTestId} = render(
+      <CustomButton title={'test'} onPress={onPress} disabled={true} />,
+    );
+    const button = getByTestId('custom-button');
+    expect(button.props.accessibilityState.disabled).toBeTruthy();
+  });
 });
