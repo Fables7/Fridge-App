@@ -41,6 +41,7 @@ const CustomInput = (props: ICustomInput) => {
         secureTextEntry={props.secureTextEntry ? true : false}
         autoCapitalize={props.autoCapitalize}
         maxLength={props.maxLength}
+        testID={'custom-input'}
       />
       {props.errMsg && (
         <StyledText
