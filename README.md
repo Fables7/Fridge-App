@@ -30,6 +30,7 @@ As this apps main target is my Family, I have not attempted to make my database 
 # Things to do
 - Use Jest for testing
 - Finish converting all fetch calls to react query calls
+- Update tsx types instead of using any
 
 
 https://github.com/Fables7/Fridge-App/assets/129498777/cf094b83-76ce-4909-9ed0-7d09a481d6c1
