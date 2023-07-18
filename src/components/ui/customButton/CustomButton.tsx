@@ -7,7 +7,7 @@ interface ICustomButton {
   title: string;
   onPress: () => void;
   selected?: boolean;
-  style?: any;
+  style?: React.CSSProperties;
   disabled?: boolean;
 }
 
