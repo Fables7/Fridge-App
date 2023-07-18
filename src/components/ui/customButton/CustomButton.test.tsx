@@ -1,19 +1,24 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react-native';
+import {render, fireEvent} from '@testing-library/react-native';
 import CustomButton from './CustomButton';
 
 describe('CustomButton', () => {
-  test('renders CustomButton component', () => {
-    render(
-      <CustomButton
-        title={''}
-        onPress={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-      />,
+  it('should render correctly', () => {
+    const onPress = jest.fn();
+    const {getByTestId} = render(
+      <CustomButton title={'test'} onPress={onPress} />,
     );
+    const button = getByTestId('custom-button');
+    expect(button).toBeTruthy();
   });
-  test('test', () => {
-    expect(true).toBe(true);
+
+  it('should call onPress when button is pressed', () => {
+    const onPress = jest.fn();
+    const {getByTestId} = render(
+      <CustomButton title={'test'} onPress={onPress} />,
+    );
+    const button = getByTestId('custom-button');
+    fireEvent.press(button);
+    expect(onPress).toHaveBeenCalled();
   });
 });

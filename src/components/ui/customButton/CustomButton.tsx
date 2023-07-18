@@ -21,11 +21,11 @@ const CustomButton = ({
   return (
     <StyledButton
       activeOpacity={1}
-      title={title}
       onPress={onPress}
       style={style}
       selected={selected}
-      disabled={disabled}>
+      disabled={disabled}
+      testID={'custom-button'}>
       <StyledText>{title}</StyledText>
     </StyledButton>
   );
