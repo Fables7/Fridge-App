@@ -5,9 +5,9 @@ import {View} from 'react-native';
 
 interface ICustomInput {
   placeholder?: string;
-  onChangeText?: (e: any) => void;
-  value?: any;
-  style?: any;
+  onChangeText?: (e: string) => void;
+  value?: string;
+  style?: React.CSSProperties;
   containerStyle?: any;
   title?: string;
   titleColor?: string;
@@ -15,7 +15,7 @@ interface ICustomInput {
   errMsg?: string;
   onBlur?: () => void;
   secureTextEntry?: boolean;
-  autoCapitalize?: any;
+  autoCapitalize?: string;
   maxLength?: number;
 }
 
