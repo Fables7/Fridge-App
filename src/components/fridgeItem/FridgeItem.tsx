@@ -36,6 +36,7 @@ const FridgeItem = ({item}: any) => {
       resizeMode="cover"
       imageStyle={{borderRadius: 12}}
       style={{backgroundColor: 'black'}}
+      testID={'fridge-item'}
       source={{
         uri:
           item.product.image ||
@@ -67,7 +68,8 @@ const FridgeItem = ({item}: any) => {
         </StyledTextWhite>
         <StyledDate>
           <StyledTextWhite
-            style={{color: color ? color : 'white', fontWeight: 'bold'}}>
+            style={{color: color ? color : 'white', fontWeight: 'bold'}}
+            testID={'fridge-item-date'}>
             {date}
           </StyledTextWhite>
         </StyledDate>
