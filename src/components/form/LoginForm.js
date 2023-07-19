@@ -184,6 +184,7 @@ const LoginForm = () => {
         <Loading />
       ) : (
         <KeyboardAvoidingView
+          testID="login-form"
           behavior={Platform.OS === 'ios' && 'padding'}
           style={{width: '100%', alignItems: 'center'}}>
           {!isLoginMode && (
