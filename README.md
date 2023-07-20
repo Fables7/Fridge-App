@@ -10,6 +10,9 @@ to expire is.
 This app uses Open Food Facts' api to collect food data from their database, primarily names of products associated to their barcode, any extra information would 
 be provided through my app, such as quantity (cheese slices), expiry date, Image, remaining quantity etc.
 
+# Spoonacular API
+This app will use Spoonacular's api to display recipes which includes ingredients that are in the fridge, however as I am currently using the free version, it is limited to only a few requests a day (150)
+
 # Images
 Concerning the images of the products, my app will request only image urls from official images to maintain a neater display, in addition urls will save any need for storing unnecesary 
 images into the database, as urls take up much less space.
