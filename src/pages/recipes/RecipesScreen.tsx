@@ -1,10 +1,14 @@
 import React from 'react';
 import {Text} from 'react-native';
-import {StyledMain} from '../../sharedStyles';
+import {StyledMain, StyledHeader} from '../../sharedStyles';
+import {SearchBar} from '../../components';
 
 const RecipesScreen = () => {
   return (
     <StyledMain>
+      <StyledHeader style={{height: 70}}>
+        <SearchBar placeholder="Search Ingredient" />
+      </StyledHeader>
       <Text>Recipes Screen WIP</Text>
     </StyledMain>
   );

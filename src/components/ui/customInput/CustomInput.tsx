@@ -42,6 +42,7 @@ const CustomInput = (props: ICustomInput) => {
         autoCapitalize={props.autoCapitalize}
         maxLength={props.maxLength}
         testID={'custom-input'}
+        placeholderTextColor="#000"
       />
       {props.errMsg && (
         <StyledText
