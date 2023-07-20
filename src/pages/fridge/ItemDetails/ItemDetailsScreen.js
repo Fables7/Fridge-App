@@ -144,7 +144,11 @@ export const ItemDetailsScreen = ({route, navigation}) => {
             }}>
             <FlatList
               data={items}
-              style={{flex: 1, paddingHorizontal: '5%'}}
+              style={{
+                flex: 1,
+                paddingHorizontal: '5%',
+              }}
+              contentContainerStyle={{paddingBottom: 80}}
               renderItem={({item, index}) => {
                 return (
                   <Swipeable renderRightActions={() => RightButton(index)}>
@@ -155,7 +159,13 @@ export const ItemDetailsScreen = ({route, navigation}) => {
             />
           </GestureHandlerRootView>
           <CustomButton
-            style={{width: '90%', height: 50, marginBottom: 30}}
+            style={{
+              width: '90%',
+              height: 50,
+              marginBottom: 30,
+              position: 'absolute',
+              bottom: 20,
+            }}
             title="Save"
             onPress={SaveHandler}
           />
