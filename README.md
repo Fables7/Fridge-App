@@ -31,6 +31,7 @@ As this apps main target is my Family, I have not attempted to make my database 
 - Use Jest for testing
 - Finish converting all fetch calls to react query calls
 - Update tsx types instead of using any
+- change px values to rem/em to enable better responsive design
 
 # KNOWN ISSUES
 - expo barcode-scanner sometimes has issues with scanning barcodes where for the same barcode it may sometimes give two different codes, one being correct and one being an error. The only solution to this is to ensure clear image of barcode. I will try and find a solution but it appears to bve an issue with the expo barcode-scanner package.
