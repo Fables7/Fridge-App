@@ -10,5 +10,8 @@ export {default as LoginForm} from './form/LoginForm';
 // Fridge Components
 export {default as FridgeItem} from './fridgeItem/FridgeItem';
 
+// Recipe Components
+export {default as RecipeItem} from './recipeItem/RecipeItem';
+
 // Loading Components
 export {default as Loading} from './loading/Loading';
