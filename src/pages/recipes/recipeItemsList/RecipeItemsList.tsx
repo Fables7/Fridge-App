@@ -29,8 +29,8 @@ const RecipeItemsList = () => {
     <StyledContainer>
       <StyledRecipeItemsList
         testID={'recipe-items-list'}
-        contentContainerStyle={{paddingHorizontal: 20}}
         data={data}
+        contentContainerStyle={{paddingBottom: 100}}
         renderItem={({item}: any) => {
           return (
             <RecipeItem

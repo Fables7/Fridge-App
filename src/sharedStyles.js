@@ -4,6 +4,7 @@ import {colors} from './variables';
 export const StyledMain = styled.SafeAreaView`
   background-color: ${colors.primary};
   flex: 1;
+  /* border: 1px solid green; */
 `;
 
 export const StyledHeader = styled.View`

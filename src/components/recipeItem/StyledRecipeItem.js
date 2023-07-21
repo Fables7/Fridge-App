@@ -26,8 +26,7 @@ export const StyledIngredientsBox = styled.View`
 
 export const StyledIngredientsList = styled(animated.View)`
   background-color: white;
-
-  /* border: 1px solid red; */
+  border: 1px solid red;
   margin-top: 129px;
 `;
 

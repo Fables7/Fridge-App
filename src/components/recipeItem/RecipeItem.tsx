@@ -29,7 +29,8 @@ const RecipeItem = ({...props}: IRecipeItem) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const contentProps = useSpring({
-    height: isOpen ? 400 : 0,
+    height: isOpen ? 100 : 0,
+    config: {tension: 300, friction: 40},
   });
 
   const {rotate} = useSpring({
