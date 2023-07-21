@@ -11,4 +11,10 @@ describe('RecipeItemsList', () => {
     const recipeItemsList = getByTestId('recipe-items-list');
     expect(recipeItemsList).toBeTruthy();
   });
+
+  it('should render recipe item', () => {
+    const {getByTestId} = render(<RecipeItemsList />);
+    const recipeItem = getByTestId('recipe-item');
+    expect(recipeItem).toBeTruthy();
+  });
 });

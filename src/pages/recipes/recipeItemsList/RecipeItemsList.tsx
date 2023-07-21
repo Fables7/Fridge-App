@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyledRecipeItemsList} from './StyledRecipeItemsList';
+import {StyledRecipeItemsList, StyledContainer} from './StyledRecipeItemsList';
 import {RecipeItem} from '../../../components';
 
 const data = [
@@ -26,22 +26,25 @@ const data = [
 
 const RecipeItemsList = () => {
   return (
-    <StyledRecipeItemsList
-      testID={'recipe-items-list'}
-      data={data}
-      renderItem={({item}: any) => {
-        return (
-          <RecipeItem
-            title={item.title}
-            image={item.image}
-            usedIngredientCount={item.usedIngredientCount}
-            missedIngredientCount={item.missedIngredientCount}
-            missedIngredients={item.missedIngredients}
-            usedIngredients={item.usedIngredients}
-          />
-        );
-      }}
-    />
+    <StyledContainer>
+      <StyledRecipeItemsList
+        testID={'recipe-items-list'}
+        contentContainerStyle={{paddingHorizontal: 20}}
+        data={data}
+        renderItem={({item}: any) => {
+          return (
+            <RecipeItem
+              title={item.title}
+              image={item.image}
+              usedIngredientCount={item.usedIngredientCount}
+              missedIngredientCount={item.missedIngredientCount}
+              missedIngredients={item.missedIngredients}
+              usedIngredients={item.usedIngredients}
+            />
+          );
+        }}
+      />
+    </StyledContainer>
   );
 };
 
