@@ -27,9 +27,11 @@ interface IRecipeItem {
 
 const RecipeItem = ({...props}: IRecipeItem) => {
   const [isOpen, setIsOpen] = useState(false);
+  const numberOfIngredients =
+    props.usedIngredientCount + props.missedIngredientCount;
 
   const contentProps = useSpring({
-    height: isOpen ? 100 : 0,
+    height: isOpen ? numberOfIngredients * 23 : 0,
     config: {tension: 300, friction: 40},
   });
 

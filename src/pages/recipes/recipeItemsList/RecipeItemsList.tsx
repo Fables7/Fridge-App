@@ -7,6 +7,34 @@ const data = [
     title: 'bacon dish',
     image: 'https://www.themealdb.com/images/media/meals/1548772327.jpg',
     missedIngredientCount: 1,
+    usedIngredientCount: 5,
+    missedIngredients: [
+      {
+        name: 'bacon',
+      },
+    ],
+    usedIngredients: [
+      {
+        name: 'eggs',
+      },
+      {
+        name: 'cheese',
+      },
+      {
+        name: 'chicken',
+      },
+      {
+        name: 'olive oil',
+      },
+      {
+        name: 'nuggets',
+      },
+    ],
+  },
+  {
+    title: 'bacon dish',
+    image: 'https://www.themealdb.com/images/media/meals/1548772327.jpg',
+    missedIngredientCount: 1,
     usedIngredientCount: 2,
     missedIngredients: [
       {

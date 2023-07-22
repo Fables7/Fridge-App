@@ -14,7 +14,7 @@ export const StyledRecipeItem = styled.ImageBackground`
 `;
 
 export const StyledIngredientsBox = styled.View`
-  height: 60px;
+  height: 65px;
   width: 100%;
   background-color: ${colors.secondary};
   flex-direction: row;
@@ -26,8 +26,11 @@ export const StyledIngredientsBox = styled.View`
 
 export const StyledIngredientsList = styled(animated.View)`
   background-color: white;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin-top: 129px;
+  /* border: 1px solid red; */
+  /* height: 120px; */
+  /* flex-grow: 1; */
 `;
 
 export const StyledButtonContainer = styled(animated.View)`
