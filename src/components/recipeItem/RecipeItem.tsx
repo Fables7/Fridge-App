@@ -5,7 +5,7 @@ import {
   StyledIngredientsList,
   StyledButtonContainer,
 } from './StyledRecipeItem';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, LayoutChangeEvent} from 'react-native';
 import {StyledTitleBox} from '../fridgeItem/StyledFridgeItem';
 import {StyledTextWhite, StyledText} from '../../sharedStyles';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -27,11 +27,18 @@ interface IRecipeItem {
 
 const RecipeItem = ({...props}: IRecipeItem) => {
   const [isOpen, setIsOpen] = useState(false);
-  const numberOfIngredients =
-    props.usedIngredientCount + props.missedIngredientCount;
+  const [height, setHeight] = useState(0);
 
-  const contentProps = useSpring({
-    height: isOpen ? numberOfIngredients * 23 : 0,
+  const onLayout = (event: LayoutChangeEvent) => {
+    const layoutHeight = event.nativeEvent.layout.height;
+
+    if (layoutHeight > 0 && layoutHeight !== height) {
+      setHeight(layoutHeight);
+    }
+  };
+
+  const animatedStyle = useSpring({
+    height: isOpen ? height : 0,
     config: {tension: 300, friction: 40},
   });
 
@@ -65,17 +72,19 @@ const RecipeItem = ({...props}: IRecipeItem) => {
       </View>
 
       <View>
-        <StyledIngredientsList style={contentProps}>
-          {props.usedIngredients.map((ingredient: ingredient) => {
-            return (
-              <StyledText key={ingredient.name}>{ingredient.name}</StyledText>
-            );
-          })}
-          {props.missedIngredients.map((ingredient: ingredient) => {
-            return (
-              <StyledText key={ingredient.name}>{ingredient.name}</StyledText>
-            );
-          })}
+        <StyledIngredientsList style={[animatedStyle]}>
+          <View style={{position: 'absolute'}} onLayout={onLayout}>
+            {props.usedIngredients.map((ingredient: ingredient) => {
+              return (
+                <StyledText key={ingredient.name}>{ingredient.name}</StyledText>
+              );
+            })}
+            {props.missedIngredients.map((ingredient: ingredient) => {
+              return (
+                <StyledText key={ingredient.name}>{ingredient.name}</StyledText>
+              );
+            })}
+          </View>
         </StyledIngredientsList>
         <StyledIngredientsBox>
           <StyledTextWhite>Have: {props.usedIngredientCount}</StyledTextWhite>
