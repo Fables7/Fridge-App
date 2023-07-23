@@ -86,7 +86,7 @@ const RecipeItem = ({...props}: IRecipeItem) => {
               })}
             </View>
             {props.missedIngredientCount > 0 && (
-              <View style={{width: '50%'}}>
+              <View style={{width: '50%', marginLeft: 20}}>
                 <StyledText>Missing:</StyledText>
                 {props.missedIngredients.map((ingredient: ingredient) => {
                   return (
