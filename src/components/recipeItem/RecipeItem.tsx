@@ -4,6 +4,7 @@ import {
   StyledIngredientsBox,
   StyledIngredientsList,
   StyledButtonContainer,
+  StyledIngredientsListContainer,
 } from './StyledRecipeItem';
 import {View, TouchableOpacity, LayoutChangeEvent} from 'react-native';
 import {StyledTitleBox} from '../fridgeItem/StyledFridgeItem';
@@ -71,20 +72,32 @@ const RecipeItem = ({...props}: IRecipeItem) => {
         </StyledTitleBox>
       </View>
 
-      <View>
+      <View style={{width: '100%'}}>
         <StyledIngredientsList style={[animatedStyle]}>
-          <View style={{position: 'absolute'}} onLayout={onLayout}>
-            {props.usedIngredients.map((ingredient: ingredient) => {
-              return (
-                <StyledText key={ingredient.name}>{ingredient.name}</StyledText>
-              );
-            })}
-            {props.missedIngredients.map((ingredient: ingredient) => {
-              return (
-                <StyledText key={ingredient.name}>{ingredient.name}</StyledText>
-              );
-            })}
-          </View>
+          <StyledIngredientsListContainer onLayout={onLayout}>
+            <View style={{flex: 1}}>
+              <StyledText>Have:</StyledText>
+              {props.usedIngredients.map((ingredient: ingredient) => {
+                return (
+                  <StyledText key={ingredient.name}>
+                    - {ingredient.name}
+                  </StyledText>
+                );
+              })}
+            </View>
+            {props.missedIngredientCount > 0 && (
+              <View style={{width: '50%'}}>
+                <StyledText>Missing:</StyledText>
+                {props.missedIngredients.map((ingredient: ingredient) => {
+                  return (
+                    <StyledText key={ingredient.name}>
+                      - {ingredient.name}
+                    </StyledText>
+                  );
+                })}
+              </View>
+            )}
+          </StyledIngredientsListContainer>
         </StyledIngredientsList>
         <StyledIngredientsBox>
           <StyledTextWhite>Have: {props.usedIngredientCount}</StyledTextWhite>
