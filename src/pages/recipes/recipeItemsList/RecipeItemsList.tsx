@@ -12,7 +12,6 @@ const RecipeItemsList = () => {
         <Loading />
       ) : (
         <StyledRecipeItemsList
-          testID={'recipe-items-list'}
           data={data}
           contentContainerStyle={{paddingBottom: 100}}
           refreshControl={
