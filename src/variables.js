@@ -10,6 +10,6 @@ export const colors = {
   tertiary: '#3A506B',
 };
 
-import serverIP from './config.js';
+import {serverIP} from './config.js';
 
 export const API_URL = serverIP;

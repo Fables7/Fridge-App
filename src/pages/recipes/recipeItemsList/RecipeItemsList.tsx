@@ -1,77 +1,37 @@
 import React from 'react';
+import {RefreshControl} from 'react-native';
 import {StyledRecipeItemsList, StyledContainer} from './StyledRecipeItemsList';
-import {RecipeItem} from '../../../components';
-
-const data = [
-  {
-    title: 'bacon dish',
-    image: 'https://www.themealdb.com/images/media/meals/1548772327.jpg',
-    missedIngredientCount: 1,
-    usedIngredientCount: 5,
-    missedIngredients: [
-      {
-        name: 'bacon',
-      },
-    ],
-    usedIngredients: [
-      {
-        name: 'eggs',
-      },
-      {
-        name: 'cheese',
-      },
-      {
-        name: 'chicken',
-      },
-      {
-        name: 'olive oil',
-      },
-      {
-        name: 'nuggets',
-      },
-    ],
-  },
-  {
-    title: 'bacon dish',
-    image: 'https://www.themealdb.com/images/media/meals/1548772327.jpg',
-    missedIngredientCount: 1,
-    usedIngredientCount: 2,
-    missedIngredients: [
-      {
-        name: 'bacon',
-      },
-    ],
-    usedIngredients: [
-      {
-        name: 'eggs',
-      },
-      {
-        name: 'cheese',
-      },
-    ],
-  },
-];
+import {RecipeItem, Loading} from '../../../components';
+import {useGetRecipes} from '../../../hooks/getRecipesQuery';
 
 const RecipeItemsList = () => {
+  const {data, isLoading, refetch} = useGetRecipes();
   return (
     <StyledContainer>
-      <StyledRecipeItemsList
-        testID={'recipe-items-list'}
-        data={data}
-        contentContainerStyle={{paddingBottom: 100}}
-        renderItem={({item}: any) => {
-          return (
-            <RecipeItem
-              title={item.title}
-              image={item.image}
-              usedIngredientCount={item.usedIngredientCount}
-              missedIngredientCount={item.missedIngredientCount}
-              missedIngredients={item.missedIngredients}
-              usedIngredients={item.usedIngredients}
-            />
-          );
-        }}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <StyledRecipeItemsList
+          testID={'recipe-items-list'}
+          data={data}
+          contentContainerStyle={{paddingBottom: 100}}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+          }
+          renderItem={({item}: any) => {
+            return (
+              <RecipeItem
+                title={item.title}
+                image={item.image}
+                usedIngredientCount={item.usedIngredientCount}
+                missedIngredientCount={item.missedIngredientCount}
+                missedIngredients={item.missedIngredients}
+                usedIngredients={item.usedIngredients}
+              />
+            );
+          }}
+        />
+      )}
     </StyledContainer>
   );
 };
