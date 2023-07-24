@@ -129,7 +129,8 @@ const Root = () => {
   );
 };
 
-const ItemDetailsNav = ({navigation}: any) => {
+const ItemDetailsNav = ({route, navigation}: any) => {
+  const {productId, name} = route.params;
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen
@@ -137,20 +138,36 @@ const ItemDetailsNav = ({navigation}: any) => {
         component={ItemDetailsScreen}
         options={{
           headerShown: true,
+          headerShadowVisible: false,
           headerStyle: {
             backgroundColor: colors.secondary,
           },
-          headerTitle: '',
-          headerBackVisible: false,
-          headerRight: () => (
-            <HeaderRight
-              icon={faEdit}
-              onPress={() => navigation.navigate('EditItem')}
-            />
-          ),
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: 'white',
+          },
+          headerTitle: 'Item Details',
+          headerTintColor: 'white',
         }}
       />
-      <Stack.Screen name="EditItem" component={EditItemScreen} />
+      <Stack.Screen
+        name="EditItem"
+        options={{
+          headerShown: true,
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: colors.secondary,
+          },
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: 'white',
+          },
+          headerTitle: 'Edit Item',
+          headerTintColor: 'white',
+          // headerBackVisible: false
+        }}
+        component={EditItemScreen}
+      />
     </Stack.Navigator>
   );
 };

@@ -14,6 +14,7 @@ export const StyledHeader = styled.View`
   border-bottom-right-radius: 20px;
   margin-bottom: 20px;
   align-items: center;
+  width: 100%;
 `;
 
 export const StyledText = styled.Text`

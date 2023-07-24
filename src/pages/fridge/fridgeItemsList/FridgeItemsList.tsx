@@ -43,6 +43,8 @@ const FridgeItemsList = ({navigation}: any) => {
                     screen: 'ItemDetails',
                     params: {
                       productId: item.product._id,
+                      name: item.product.name,
+                      image: item.product.image,
                     },
                   })
                 }>

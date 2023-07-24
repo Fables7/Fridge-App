@@ -19,3 +19,11 @@ export const NumDisplay = styled.View`
   align-items: center;
   width: 100%;
 `;
+
+export const StyledImage = styled.Image`
+  width: 80%;
+  height: 150px;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  border-radius: 10px;
+`;

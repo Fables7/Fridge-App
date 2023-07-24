@@ -2,6 +2,8 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
+import {HeaderRight} from '../../../navigation/CustomDrawerContent';
+import {faEdit} from '@fortawesome/free-solid-svg-icons';
 
 import {
   IncrementButton,
@@ -16,11 +18,29 @@ import {
 } from '../../../hooks/getAllFridgeItemsQuery';
 
 // Styles
-import {StyledMain, StyledText} from '../../../sharedStyles';
+import {StyledMain, StyledText, StyledHeader} from '../../../sharedStyles';
 import {StyledButtons, NumDisplay} from './StyledItemDetails';
 
 export const ItemDetailsScreen = ({route, navigation}) => {
-  const {productId} = route.params;
+  const {productId, name, image} = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderRight
+          icon={faEdit}
+          onPress={() =>
+            navigation.navigate('EditItem', {
+              productId: productId,
+              name: name,
+              image: image,
+            })
+          }
+        />
+      ),
+    });
+  }, [image, name, navigation, productId]);
+
   const estimatedWords = [
     'full',
     '3/4',
@@ -133,7 +153,8 @@ export const ItemDetailsScreen = ({route, navigation}) => {
   // TODO add loading
 
   return (
-    <StyledMain style={{alignItems: 'center', paddingVertical: 20}}>
+    <StyledMain style={{paddingBottom: 20}}>
+      <StyledHeader />
       {isLoading ? (
         <Loading />
       ) : (

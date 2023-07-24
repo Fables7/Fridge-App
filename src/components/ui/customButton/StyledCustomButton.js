@@ -9,4 +9,5 @@ export const StyledButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   border-radius: 15px;
+  opacity: ${props => (props.disabled ? 0.5 : 1)};
 `;

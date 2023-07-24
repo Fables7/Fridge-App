@@ -57,18 +57,3 @@ const CustomInput = (props: ICustomInput) => {
 };
 
 export default CustomInput;
-
-// <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-//   <>
-// <StyledText style={{color: props.titleColor, marginBottom: 5}}>
-//   {props.title}
-// </StyledText>
-// <StyledInput
-//   placeholder={props.placeholder}
-//   onChangeText={props.onChangeText}
-//   value={props?.value}
-//   style={props.style}
-//   keyboardType={props.keyboardType}
-// />
-//   </>
-// </TouchableWithoutFeedback>
