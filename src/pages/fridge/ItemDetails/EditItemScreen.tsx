@@ -7,8 +7,10 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
+import {useUpdateProduct} from '../../../hooks/updateProduct';
 
-const EditItemScreen = ({route}: any) => {
+const EditItemScreen = ({route, navigation}: any) => {
+  const {mutate, isLoading, error} = useUpdateProduct();
   const {name, productId, image} = route.params;
   const defaultImage =
     'https://raw.githubusercontent.com/koehlersimon/fallback/master/Resources/Public/Images/placeholder.jpg';
@@ -23,6 +25,11 @@ const EditItemScreen = ({route}: any) => {
 
   const [newName, setNewName] = useState(name);
   const [newNameValid, setNewNameValid] = useState(false);
+
+  const fieldsToUpdate = {
+    ...(newName !== name && newName.length > 0 && {name: newName}), // Include the 'name' field only if newName is not empty
+    ...(newImage !== '' && newImgValid && {image: newImage}), // Include the 'image' field only if newImage is not empty
+  };
 
   useEffect(() => {
     if (newName === name || (newName !== name && newName.length !== 0)) {
@@ -110,7 +117,13 @@ const EditItemScreen = ({route}: any) => {
             disabled={disableHandler()}
             title="Save"
             style={{marginTop: '10%'}}
-            onPress={() => {}}
+            onPress={() => {
+              if (Object.keys(fieldsToUpdate).length > 0) {
+                const data = {productId, changes: fieldsToUpdate};
+                mutate(data);
+              }
+              navigation.goBack();
+            }}
           />
         </KeyboardAvoidingView>
       </StyledMain>
