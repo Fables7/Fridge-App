@@ -1,9 +1,10 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, {useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, RefreshControl} from 'react-native';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import {HeaderRight} from '../../../navigation/CustomDrawerContent';
 import {faEdit} from '@fortawesome/free-solid-svg-icons';
+import {useFocusEffect} from '@react-navigation/native';
 
 import {
   IncrementButton,
@@ -22,7 +23,7 @@ import {StyledMain, StyledText, StyledHeader} from '../../../sharedStyles';
 import {StyledButtons, NumDisplay} from './StyledItemDetails';
 
 export const ItemDetailsScreen = ({route, navigation}) => {
-  const {productId, name, image} = route.params;
+  const {productId} = route.params;
 
   useEffect(() => {
     navigation.setOptions({
@@ -32,14 +33,12 @@ export const ItemDetailsScreen = ({route, navigation}) => {
           onPress={() =>
             navigation.navigate('EditItem', {
               productId: productId,
-              name: name,
-              image: image,
             })
           }
         />
       ),
     });
-  }, [image, name, navigation, productId]);
+  }, [navigation, productId]);
 
   const estimatedWords = [
     'full',
@@ -50,7 +49,13 @@ export const ItemDetailsScreen = ({route, navigation}) => {
     'empty',
   ];
 
-  const {data, isLoading} = useGetItemDetails(productId);
+  const {data, isLoading, refetch} = useGetItemDetails(productId);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      refetch();
+    }, [refetch]),
+  );
   const {mutate, error} = useSaveItemDetails();
   console.log('isLoading:', isLoading);
   console.log('data:', data);
@@ -153,7 +158,7 @@ export const ItemDetailsScreen = ({route, navigation}) => {
   // TODO add loading
 
   return (
-    <StyledMain style={{paddingBottom: 20}}>
+    <StyledMain style={{paddingBottom: 20, alignItems: 'center'}}>
       <StyledHeader />
       {isLoading ? (
         <Loading />
@@ -165,6 +170,9 @@ export const ItemDetailsScreen = ({route, navigation}) => {
             }}>
             <FlatList
               data={items}
+              refreshControl={
+                <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+              }
               style={{
                 flex: 1,
                 paddingHorizontal: '5%',
