@@ -49,8 +49,10 @@ const DashboardScreen = ({navigation}) => {
           Authorization: 'Bearer ' + auth.token,
         },
       );
-      auth.setFridge(responseData.data.fridgeId, responseData.data.code);
-      navigation.navigate('Root', {screen: 'Fridge'});
+
+      auth.setFridge(responseData.data.id, responseData.data.code).then(() => {
+        navigation.navigate('Root', {screen: 'Fridge'});
+      });
     } catch (err) {
       console.log(err);
     }
