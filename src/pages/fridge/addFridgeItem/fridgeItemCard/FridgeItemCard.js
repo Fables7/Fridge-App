@@ -117,7 +117,11 @@ const NewProductCard = ({
 
 const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
   const {data, isLoading, refetch} = useGetProduct(barcode);
-  const {mutate, error: addProductError} = useAddProduct();
+  const {
+    data: newProductData,
+    mutate,
+    error: addProductError,
+  } = useAddProduct();
   // NEW ITEM
   const [quantity, setQuantity] = useState('1');
   const [expDate, setExpDate] = useState(new Date());
@@ -149,12 +153,13 @@ const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
         productData = {...productData, fixedAmount: fixedAmount};
       }
 
-      mutate(productData);
+      await mutate(productData);
       if (addProductError) {
         console.log('Failed to add product');
         return;
+      } else {
+        refetch();
       }
-      refetch();
     }
   };
 

@@ -33,7 +33,12 @@ export const useGetProduct = (barcode: any) => {
 // Add new product to database
 export const useAddProduct = () => {
   const {error, mutate, isLoading} = useMutation(async (productData: any) => {
-    await axios.post(`${API_URL}/api/v1/products`, productData);
+    const {data: responseData} = await axios.post(
+      `${API_URL}/api/v1/products`,
+      productData,
+    );
+
+    return responseData;
   });
 
   return {mutate, isLoading, error};
