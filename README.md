@@ -21,7 +21,6 @@ images into the database, as urls take up much less space.
 As this apps main target is my Family, I have not attempted to make my database robust in the sense of managing who can upload images and edit products, however if the need to update this ever arises I will fix it accordingly, but for now I have decided that it is unnecessary.
 
 # Things to add
-- What can I make page (using soon to expire food)
 - Setting recurring items
 - Need to buy list
 - profile section with view of all joined fridges, favourited foods etc
@@ -29,6 +28,7 @@ As this apps main target is my Family, I have not attempted to make my database 
 # Future code updates
 - Need to change to Axios and React Query instead of my existing Fetch requests to optimise app and follow better practices
 - Add React JoyRide to do a help tour of the app
+- what can I make page works, but need to find out how to use api to allow usage of sevral ingredients, seems that it shows every recipe possible for the first ingredient listed which leads to not showing any for the other ingredients.
 
 # Things to do
 - Use Jest for testing
