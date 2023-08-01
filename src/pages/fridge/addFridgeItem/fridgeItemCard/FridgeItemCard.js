@@ -168,6 +168,14 @@ const FridgeItemCard = ({name, barcode, addItem, handleRescan}) => {
       <StyledCard contentContainerStyle={{alignItems: 'center'}}>
         {!isLoading && (
           <>
+            <StyledTextWhite>{barcode}</StyledTextWhite>
+            <StyledTextWhite style={{marginBottom: 20, fontSize: 12}}>
+              Is this the right barcode? if not, please rescan
+            </StyledTextWhite>
+          </>
+        )}
+        {!isLoading && (
+          <>
             <StyledTextWhite>
               {data?.productId ? name : 'New Product'}
             </StyledTextWhite>
