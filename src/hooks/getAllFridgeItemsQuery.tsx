@@ -104,6 +104,11 @@ export const useSaveItemDetails = () => {
         await axios.patch(
           `${API_URL}/api/v1/fridges/${auth.fridgeId}/items`,
           itemsToUpdate,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
         );
       }
     },

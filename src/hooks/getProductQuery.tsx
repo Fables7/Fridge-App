@@ -36,6 +36,11 @@ export const useAddProduct = () => {
     const {data: responseData} = await axios.post(
       `${API_URL}/api/v1/products`,
       productData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
     );
 
     return responseData;
